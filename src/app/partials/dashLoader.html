@@ -154,3 +154,29 @@
 <li ng-show="dashboard.current.editable " bs-tooltip="'Configure dashboard'" data-placement="bottom">
     <a title="Configuration" alt="Configuration" href='#' bs-modal="'app/partials/dasheditor.html'"><i class='icon-cog pointer'></i></a>
 </li>
+
+<!-- Log-in/profile menu -->
+<li class="dropdown" bs-tooltip="'Login/Profile'" data-placement="bottom" ng-show="showDropdown('login')">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+     ng-click="login_profile()">
+    <img src="img/coinform48w.png" style="height:20px;"></img>
+  </a>
+  <ul class="dropdown-menu" style="padding:10px;z-index:1001">
+    <li ng-show='ciUser.loggedIn'>
+      <h5>Profile
+        <tip>Already logged-in</tip></h5>
+      Hi, {{ciUser.email}}
+    </li>
+    <li ng-hide='ciUser.loggedIn'>
+      <h5>Log-in
+        <tip>Login using your email and password (register using the browser plug-in)</tip></h5>
+      <form>
+        <input type="text" ng-model="coinfoCredentials.email" placeholder="Co-inform e-mail"><br>
+        <input type="password" ng-model="coinfoCredentials.password"> <br>
+        <button class="btn" ng-click="coinformLogin()">
+          Co-inform Log-in
+        </button>
+      </form>
+    </li>
+  </ul>
+</li>

@@ -40,6 +40,7 @@ require.config({
     'jquery.flot.axislabels': '../vendor/jquery/jquery.flot.axislabels',
     'showdown':               '../vendor/showdown',
 
+    jwt_decode:               '../vendor/jwt-decode',
     modernizr:                '../vendor/modernizr-2.6.1',
     elasticjs:                '../vendor/elasticjs/elastic-angular-client',
     solrjs:                   '../vendor/solrjs/solr-angular-client',

@@ -91,10 +91,11 @@ function (angular, $, _, appLevelRequire) {
     // If the backend (apollo) gives us a 401, redirect to the login page.
     $httpProvider.responseInterceptors.push(function() {
         return function(p){
+            
           return p.then(
             angular.identity,
             function(err){
-              if( err.status === 401 ){
+              if( err.status === 401 && err.config && err.config.url != "https://api.coinform.eu/login" ){
                 // Send in the current location for a post login redirect
                 // -- the "return" param.
                 // Do this as a relative path change since we don't know what
@@ -108,9 +109,13 @@ function (angular, $, _, appLevelRequire) {
                 goto = goto.replace(/#/g, '%23');  
                 window.location = goto;
                 return;
+              } else if (err.status === 401) {
+                return err; //propagate
               } else if (err.status === 404) {
-                  console.log('http 404 encounter!');
+                console.log('http 404 encounter!');
+                return err;
               }
+              return err;
             }
           );
         };
