@@ -8,17 +8,32 @@ function (angular, app, _) {
 
     var module = angular.module('kibana.controllers');
 
-    module.controller('RowCtrl', function ($scope, $rootScope, $timeout, ejsResource, sjsResource, querySrv) {
+    module.controller('RowCtrl', function ($scope, $rootScope, $timeout, dashboard, ejsResource, sjsResource, querySrv) {
         var _d = {
             title: "Row",
             height: "150px",
             collapse: false,
+            showHeader: false,
             collapsable: true,
             editable: true,
             panels: []
         };
 
         _.defaults($scope.row, _d);
+        if ($scope.row.showFirstTime) {
+            console.log('Loading row for dboard', dashboard);
+            let myStorage = window.localStorage;
+            let dboardSeenKey = 'dashboard-' + dashboard.current.hashCode + '-seen';
+            console.log('retrieving localStorage value for', dboardSeenKey);
+            let dboardSeen = myStorage.getItem(dboardSeenKey);
+            console.log('dboardSeen value', dboardSeen);
+            if (!dboardSeen) {
+                // the user has not seen this row yet, so make sure it's not collapsed
+                $scope.row.collapse = false;
+                myStorage.setItem(dboardSeenKey, 'yes'); // and remember the user has now seen it
+            }
+        }
+        $scope.row.showHeader = dashboard.current.coinform_experimental || $scope.row.collapse; //initially, make sure these are aligned
 
         $scope.init = function () {
             $scope.querySrv = querySrv;
@@ -30,6 +45,10 @@ function (angular, app, _) {
                 return;
             }
             row.collapse = row.collapse ? false : true;
+            console.log("scope", $scope);
+            console.log("rootScope", $rootScope);
+            console.log("dashboard", dashboard);
+            row.showHeader = dashboard.current.coinform_experimental || row.collapse; // by default, show header when row is collapsed
             if (!row.collapse) {
                 $timeout(function () {
                     $scope.$broadcast('render');
@@ -67,6 +86,12 @@ function (angular, app, _) {
                 type: type
             };
         };
+
+        $scope.click_to_expand_or_collapse = function(row) {
+            if (!row.collapsable) return "";
+            if (row.collapse) return "(click to expand)";
+            return "(click to collapse)";
+        }
 
         $scope.init();
     });
