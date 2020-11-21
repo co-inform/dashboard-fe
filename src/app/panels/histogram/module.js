@@ -652,10 +652,10 @@ function (angular, app, $, _, kbn, moment, timeSeries) {
             return "%m/%y";
           }
           if(_int >= 86400) {
-            return "%m/%d/%y";
+            return "%d/%m/%y";
           }
           if(_int >= 60) {
-            return "%H:%M<br>%m/%d";
+            return "%H:%M<br>%d/%m";
           }
 
           return "%H:%M:%S";
@@ -683,7 +683,7 @@ function (angular, app, $, _, kbn, moment, timeSeries) {
 
             var lbPositiveValue = (lnLastValue>0);
 
-            var lsItemTT = group + dashboard.numberWithCommas(value) + " @ " + (scope.panel.timezone === 'utc'? moment.utc(item.datapoint[0]).format('MM/DD HH:mm:ss') : moment(item.datapoint[0]).format('MM/DD HH:mm:ss'));
+            var lsItemTT = group + dashboard.numberWithCommas(value) + " @ " + (scope.panel.timezone === 'utc'? moment.utc(item.datapoint[0]).format('DD/MM HH:mm:ss') : moment(item.datapoint[0]).format('DD/MM HH:mm:ss'));
 
             var hoverSeries = item.series;
             var x = item.datapoint[0];
@@ -742,7 +742,7 @@ function (angular, app, $, _, kbn, moment, timeSeries) {
                     group = kbn.query_color_dot(s.color, 15) + ' ';
                   }
 
-                  lsItemTT = group + dashboard.numberWithCommas(value) + " @ " + (scope.panel.timezone === 'utc'? moment.utc(p[0]).format('MM/DD HH:mm:ss') : moment(p[0]).format('MM/DD HH:mm:ss'));
+                  lsItemTT = group + dashboard.numberWithCommas(value) + " @ " + (scope.panel.timezone === 'utc'? moment.utc(p[0]).format('DD/MM HH:mm:ss') : moment(p[0]).format('DD/MM HH:mm:ss'));
                   lsTT = lsTT +"</br>"+ lsItemTT;
                   break;
                 }

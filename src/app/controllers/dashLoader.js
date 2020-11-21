@@ -8,7 +8,7 @@ function (angular, _, config) {
 
     var module = angular.module('kibana.controllers');
 
-    module.controller('dashLoader', function ($scope, $http, timer, dashboard, alertSrv) {
+    module.controller('dashLoader', function ($scope, $http, timer, dashboard, alertSrv, ciUser) {
         var self = this;
         // Solr and Fusion uses different field names for their schema.
         // Solr uses banana-int collection, and Fusion uses system_banana collection.
@@ -33,10 +33,12 @@ function (angular, _, config) {
         };
 
         $scope.loader = dashboard.current.loader;
+        $scope.ciUser = ciUser;
 
         $scope.init = function () {
             $scope.gist_pattern = /(^\d{5,}$)|(^[a-z0-9]{10,}$)|(gist.github.com(\/*.*)\/[a-z0-9]{5,}\/*$)/;
             $scope.gist = $scope.gist || {};
+            $scope.coinfoCredentials = $scope.coinfoCredentials || {};
             $scope.elasticsearch = $scope.elasticsearch || {};
             $scope.resetNewDefaults();
             // $scope.elasticsearch is used throught out this file, dashLoader.html and others.
@@ -87,6 +89,9 @@ function (angular, _, config) {
             }
             if (type === 'home') {
                 return (dashboard.current.home || $scope.home);
+            }
+            if (type === 'login') {
+                return (dashboard.current.coinform || $scope.coinform);
             }
 
             return false;
@@ -349,5 +354,9 @@ function (angular, _, config) {
           }
           return url;
         };
+
+        $scope.coinformLogin = function() {
+            ciUser.login($scope.coinfoCredentials);
+        }
     });
 });

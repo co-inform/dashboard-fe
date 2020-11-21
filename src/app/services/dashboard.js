@@ -91,7 +91,21 @@ function (angular, $, kbn, _, config, moment, Modernizr) {
         var gist_pattern = /(^\d{5,}$)|(^[a-z0-9]{10,}$)|(gist.github.com(\/*.*)\/[a-z0-9]{5,}\/*$)/;
         var filterSrv, querySrv;
 
+        let hashCode = function(str) {
+            var hash = 0, i = 0, len = str.length;
+            while ( i < len ) {
+                hash  = ((hash << 5) - hash + str.charCodeAt(i++)) << 0;
+            }
+            console.log('Hash for', str, hash);
+            return hash;
+        };
+
+        let setHashCode = function(dboard) {
+            dboard.hashCode = hashCode(dboard.title + '|' + dboard.version);
+        };
+        
         this.current = _.clone(_dash);
+        setHashCode(this.current);
         this.last = {};
 
         $rootScope.$on('$routeChangeSuccess', function () {
@@ -233,6 +247,7 @@ function (angular, $, kbn, _, config, moment, Modernizr) {
             }
 
             self.current = _.clone(dashboard);
+            setHashCode(self.current);
 
             // Ok, now that we've setup the current dashboard, we can inject our services
             querySrv = $injector.get('querySrv');

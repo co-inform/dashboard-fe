@@ -1,6 +1,6 @@
 ﻿{
     "title": "COVID-19 (dis)information Dashboard",
-    "version": "v20200617",
+    "version": "v20201118",
   "services": {
     "query": {
       "idQueue": [
@@ -56,7 +56,8 @@
       "height": "50px",
       "editable": false,
       "collapse": true,
-      "collapsable": true,
+        "collapsable": true,
+        "showFirstTime": true,
       "panels": [
         {
           "error": false,
@@ -67,28 +68,12 @@
           "loadingEditor": false,
           "status": "Stable",
           "mode": "markdown",
-          "content": "# Dashboard on covid-19 (dis)information\n\nThis dashboard shows an overview of documents, mainly tweets and news articles related to corona virus and covid-19, collected and analysed by the [Co-inform](https://coinform.eu) platform. \n\nThis dashboard allows you to:\n\n* select a subset of documents by defining *filters*\n*  get an overview of how many documents have been collected over time and how many of those have been assessed to have low **credibility**\n* **explore correlations** between low credibility documents and:\n  * main words in those documents\n  * medical conditions mentioned in the documents\n  * organizations mentioned in the documents\n  * people mentioned in the documents\n* Inspect details about example documents\n\n## Main document sources \n\n* **[Twitter](https://twitter.com)**: mainly tweets with hashtags `#coronavirus`, `#covid-19`, `#bioweapon`\n* Various news sources (not corona virus related)\n  * [The Sun](https://www.thesun.co.uk)\n  * [Buzzfeed](https://www.buzzfeed.com/)\n  * [news.com.au](https://www.news.com.au/)\n  * [Seattle Times](https://www.seattletimes.com/)\n  * [Sputnik News](https://sputniknews.com/)\n  * [Daily Mail](https://www.dailymail.co.uk)\n  * [Daily Caller](https://dailycaller.com/)\n  * many others",
+          "content": "# Dashboard on covid-19 (dis)information\n\nThis dashboard shows an overview of tweets related to corona virus and covid-19, collected and analysed by the [Co-inform](https://coinform.eu) platform. \n\nThis dashboard allows you to:\n\n* select a subset of tweets (check the *Filters* tab)\n*  get an overview of how many tweets have been collected over time and have been assessed to have low **credibility** (check the *Overview of rated tweets* tab)\n* Get an overview of how many tweets have been collected over time in relation to their credibility/non-credibility status (Check the *Timelines of the retrieved tweets* tab)\n* **Explore correlations** between low credibility tweets and:\n** main words in those tweets\n** medical terminology mentioned in the tweets\n** organizations mentioned in the tweets\n** people mentioned in the tweets\n** (Check the *Tag clouds & Interactive graphs* tab)\n* Inspect details about a subset of tweets (Check the *Example of tweets* tab)\n\n## Main document sources \n\n* **[Twitter](https://twitter.com)**: mainly tweets with hashtags `#coronavirus`, `#covid-19`, `#bioweapon`\n* Various news sources (not corona virus related)\n  * [The Sun](https://www.thesun.co.uk)\n  * [Buzzfeed](https://www.buzzfeed.com/)\n  * [news.com.au](https://www.news.com.au/)\n  * [Seattle Times](https://www.seattletimes.com/)\n  * [Sputnik News](https://sputniknews.com/)\n  * [Daily Mail](https://www.dailymail.co.uk)\n  * [Daily Caller](https://dailycaller.com/)\n  * many others",
           "style": {},
           "title": "About this Dashboard",
           "show_help_message": true,
           "info_mode": "markdown",
-          "help_message": "Provides a short description about the dashboard, its goals and the sources used to populate the collection of documents."
-        },
-        {
-          "error": false,
-          "span": 4,
-          "editable": false,
-          "draggable": false,            
-          "type": "text",
-          "loadingEditor": false,
-          "status": "Stable",
-          "mode": "markdown",
-          "content": "## Under development\nThe following dashboards are under development:\n\n* [FakeNewsNet](/#/dashboard/file/dev-fakeNewsNet.json): shows results for a set of 960 news articles that were previoulsy fact-checked by PolitiFact;\n* [COVID-19](/#/dashboard/file/dev-coinform.json): development version of the covid-19 dashboard;\n* [claims](/#/dashboard/file/dev-claims.json): dashboard for about 85K claims extrated from `ClaimReview`s or crawled news sources;\n* [Pilot Greece](/#/dashboard/file/pilot-gr.json): focused on news sources in Greece",
-          "style": {},
-          "title": "Other Co-inform Dashboards",
-          "show_help_message": true,
-          "info_mode": "markdown",
-          "help_message": "Provides links to other Co-inform dashboards."
+          "help_message": "Provides a short description about the dashboard, its goals and the sources used to populate the collection of tweets."
         }          
       ]
     },
@@ -108,7 +93,7 @@
           "loadingEditor": false,
           "status": "Stable",
           "mode": "markdown",
-          "content": "Use the *timepicker* and/or *filter*s to the right to filter by time, category (topic), credibility label, etc.",
+          "content": "Use the *timepicker* and/or *filter*s to the right to filter the collected tweets by time, category(topic), credibility label, etc.",
           "style": {},
           "title": "Filter results"
         },
@@ -141,7 +126,7 @@
           "filter_id": 0,
           "show_help_message": true,
           "info_mode": "markdown",
-          "help_message": "Use this *timepicker* to restrict the dashboard to documents published in the selected time frame.",
+          "help_message": "Use this *timepicker* to restrict the dashboard to tweets published in the selected time frame.",
           "title": "Filter by published date"
         },
         {
@@ -184,12 +169,12 @@
           "offset": 0,
           "show_help_message": true,
           "info_mode": "markdown",
-          "help_message": "Use this component to see (and define filters for) the main;\n\n* `categories` these are topics identified automatically using [Expert System](http://expertsystem.com)'s [Cogito](https://expertsystem.com/products/cogito-intelligence-platform/) natural language processing. \n* `credibility label`s: these are automatically assigned to documents based on a state-of-the-art misinformation detection algorithm that tries to link sentences in documents to previously fact-checked claims.  \n* `source_id`: name of the source of documents, this is typically the website or twitter hashtag used to collect documents.\n* `organizations`: which have been identified as being mentioned in the text\n* `people`: who have been mentioned in the text"
+          "help_message": "Use this component to see (and define filters for) the main;\n\n* `categories` these are topics identified automatically using [Expert System](http://expertsystem.com)'s [Cogito](https://expertsystem.com/products/cogito-intelligence-platform/) natural language processing. \n* `credibility label`s: these are automatically assigned to tweets based on a state-of-the-art misinformation detection algorithm that tries to link sentences in tweets to previously fact-checked claims.  \n* `source_id`: name of the source of tweets, this is typically the website or twitter hashtag used to collect tweets.\n* `organizations`: which have been identified as being mentioned in the text\n* `people`: who have been mentioned in the text"
         }
       ]
     },
     {
-      "title": "Overview of Rated Documents",
+      "title": "Overview of Rated Tweets",
       "height": "150px",
       "editable": false,
       "collapse": false,
@@ -227,7 +212,7 @@
               "type": "count",
               "field": "id",
               "decimalDigits": 0,
-              "label": "# docs matching the active filters",
+              "label": "# tweets matching the active filters",
               "value": "3141139"
             }
           ],
@@ -238,7 +223,7 @@
           "title": "Collected",
           "show_help_message": true,
           "info_mode": "markdown",
-          "help_message": "This is the number of documents matching the *active filters* (set above)"
+          "help_message": "This is the number of tweets matching the *active filters* (set above)"
         },
         {
           "span": 2,
@@ -272,7 +257,7 @@
               "type": "count",
               "field": "id",
               "decimalDigits": 0,
-              "label": "# docs with an automated credibility rating",
+              "label": "# tweets with an automated credibility rating",
               "value": "26064"
             }
           ],
@@ -280,10 +265,10 @@
             "enable": false,
             "interval": 2
           },
-            "title": "Rated Docs",
+            "title": "Rated Tweets",
           "show_help_message": true,
           "info_mode": "markdown",
-          "help_message": "This is the number of documents matching the *active filters* (set above) that also have an automatically calculated credibility rating."
+          "help_message": "This is the number of tweets matching the *active filters* (set above) that also have an automatically calculated credibility rating."
         },
         {
           "span": 2,
@@ -317,7 +302,7 @@
               "type": "count",
               "field": "id",
               "decimalDigits": 0,
-              "label": "# (mostly) not credible docs",
+              "label": "# (mostly) not credible tweets",
               "value": "11657"
             }
           ],
@@ -328,7 +313,7 @@
             "title": "Not credible",
           "show_help_message": true,
           "info_mode": "markdown",
-          "help_message": "Shows the number of documents matching the *active filters* (set above) that have been  automatically assessed to be either **not credible** or **mostly not credible**. You can use the table at the bottom of this dashboard to inspect the *credibility explanation* for some example documents."
+          "help_message": "Shows the number of tweets matching the *active filters* (set above) that have been  automatically assessed to be either **not credible** or **mostly not credible**. You can use the table at the bottom of this dashboard to inspect the *credibility explanation* for some example tweets."
         },
         {
           "span": 2,
@@ -362,7 +347,7 @@
               "type": "count",
               "field": "id",
               "decimalDigits": 0,
-              "label": "# (mostly) Credible docs",
+              "label": "# (mostly) Credible tweets",
               "value": "1989"
             }
           ],
@@ -373,7 +358,7 @@
             "title": "Credible",
           "show_help_message": true,
           "info_mode": "markdown",
-          "help_message": "Shows the number of documents matching the *active filters* (set above) that have been  automatically assessed to be either **credible** or **mostly credible**. You can use the table at the bottom of this dashboard to inspect the *credibility explanation* for some example documents."            
+          "help_message": "Shows the number of tweets matching the *active filters* (set above) that have been  automatically assessed to be either **credible** or **mostly credible**. You can use the table at the bottom of this dashboard to inspect the *credibility explanation* for some example tweets."            
         },
         {
           "span": 2,
@@ -480,12 +465,12 @@
           "title": "Credibility",
           "show_help_message": true,
           "info_mode": "markdown",
-          "help_message": "### Shows the distribution of *credibility labels* for the documents. \nThese have been **automatically** calculated using a state-of-the-art artificial intelligence system by trying to link documents with *credibility signals* such as:\n\n* **previously fact-checked claims** similar to sentences in the document\n* the **reputation of the sites** where similar sentences have been published\n\n### Understanding credibility labels\nAs part of [Co-inform](https://coinform.eu) we have defined the following set of credibility labels:\n\n* **credible**\n* **mostly credible**\n* **credibility uncertain**\n* **mostly not credible**\n* **not credible**\n\nWe also have a sixth label, which is not really about *credibility*:\n\n* **not verifiable** indicates that our AI had trouble assessing the credibility for some reason\n\n#### Credibility vs accuracy\nNote that our AI predicts **credibility** of a document, not **accuracy**. This is because we do not believe current AI systems are capable of assessing the accuracy of an article, only humans can do this."
+          "help_message": "### Shows the distribution of *credibility labels* for the tweets. \nThese have been **automatically** calculated using a state-of-the-art artificial intelligence system by trying to link tweets with *credibility signals* such as:\n\n* **previously fact-checked claims** similar to sentences in the tweets\n* the **reputation of the sites** where similar sentences have been published\n\n### Understanding credibility labels\nAs part of [Co-inform](https://coinform.eu) we have defined the following set of credibility labels:\n\n* **credible**\n* **mostly credible**\n* **credibility uncertain**\n* **mostly not credible**\n* **not credible**\n\nWe also have a sixth label, which is not really about *credibility*:\n\n* **not verifiable** indicates that our AI had trouble assessing the credibility for some reason\n\n#### Credibility vs accuracy\nNote that our AI predicts **credibility** of a tweets, not **accuracy**. This is because we do not believe current AI systems are capable of assessing the accuracy of an article, only humans can do this."
         }
       ]
     },
     {
-      "title": "Graph",
+      "title": "Timeline of the retrieved tweets",
       "height": "100px",
       "editable": false,
       "collapse": false,
@@ -533,10 +518,10 @@
           "timezone": "browser",
           "spyable": true,
           "zoomlinks": true,
-          "bars": false,
+          "bars": true,
           "stack": false,
           "points": false,
-          "lines": true,
+          "lines": false,
           "lines_smooth": false,
           "legend": false,
           "x-axis": false,
@@ -553,15 +538,15 @@
             "enable": false,
             "interval": 2
           },
-            "title": "Documents by published date",
+            "title": "Tweets by published date",
           "show_help_message": true,
           "info_mode": "markdown",
-          "help_message": "### Shows when documents were published. \nOnly the documents which match the **active filters** are shown. In some cases, collected documents may not provide the original publish date, in such cases the date when we collected the document is reported."            
+          "help_message": "### Shows when tweets were published. \nOnly the tweets which match the **active filters** are shown. In some cases, collected tweets may not provide the original publish date, in such cases the date when we collected the tweets is reported."            
         }
       ]
     },
     {
-      "title": "Not credible timeline",
+      "title": "Timeline of not credible tweets",
       "height": "100px",
       "editable": false,
       "collapse": false,
@@ -629,15 +614,15 @@
             "enable": false,
             "interval": 2
           },
-            "title": "Not credible documents by published date",
+            "title": "Not credible tweets by published date",
           "show_help_message": true,
           "info_mode": "markdown",
-          "help_message": "### Shows when **not credible** documents were published. \nOnly the documents which match the **active filters** and are either **not credible** or **mostly not credible** are shown. In some cases, collected documents may not provide the original publish date, in such cases the date when we collected the document is reported."                        
+          "help_message": "### Shows when **not credible** tweets were published. \nOnly the tweets which match the **active filters** and are either **not credible** or **mostly not credible** are shown. In some cases, collected tweets may not provide the original publish date, in such cases the date when we collected the tweets is reported."                        
         }
       ]
     },
     {
-      "title": "Credible timeline",
+      "title": "Timeline of Credible tweets",
       "height": "130px",
       "editable": false,
       "collapse": false,
@@ -705,15 +690,15 @@
             "enable": false,
             "interval": 2
           },
-            "title": "Credible documents by published date",
+            "title": "Credible tweets by published date",
           "show_help_message": true,
           "info_mode": "markdown",
-          "help_message": "### Shows when **credible** documents were published. \nOnly the documents which match the **active filters** and are either **credible** or **mostly credible** are shown. In some cases, collected documents may not provide the original publish date, in such cases the date when we collected the document is reported."                        
+          "help_message": "### Shows when **credible** tweets were published. \nOnly the tweets which match the **active filters** and are either **credible** or **mostly credible** are shown. In some cases, collected tweets may not provide the original publish date, in such cases the date when we collected the tweets is reported."                        
         }
       ]
 },      
     {
-      "title": "Not credible details",
+      "title": "Tag clouds & interactive graphs",
       "height": "350px",
       "editable": false,
       "collapse": false,
@@ -740,10 +725,10 @@
           "ignoreStopWords": false,
           "spyable": true,
           "show_queries": false,
-          "title": "Main words in not credible docs",
+          "title": "Main keywords represented in not credible tweets",
           "show_help_message": true,
           "info_mode": "markdown",
-          "help_message": "Shows the *main words* identified in documents which have also been identified as either **not credible** or **mostly not credible**.\nThis should give you an idea of *what are the (potentially) misinforming documents about*."
+          "help_message": "Shows the *main words* identified in tweets which have also been identified as either **not credible** or **mostly not credible**.\nThis should give you an idea of *what are the (potentially) misinforming tweets about*."
         },
         {
           "span": 3,
@@ -766,10 +751,10 @@
           "ignoreStopWords": false,
           "spyable": true,
           "show_queries": false,
-          "title": "Medical conditions in not credible docs",
+          "title": "Medical conditions in not credible tweets",
           "show_help_message": true,
           "info_mode": "markdown",
-          "help_message": "Shows the *medical conditions* mentioned in documents which have also been identified as either **not credible** or **mostly not credible**.\nThis should give you an idea of *what medical conditions are associated with (potentially) misinforming documents*."            
+          "help_message": "Shows the *medical conditions* mentioned in tweets which have also been identified as either **not credible** or **mostly not credible**.\nThis should give you an idea of *what medical conditions are associated with (potentially) misinforming tweets*."            
         },
         {
           "span": 3,
@@ -794,7 +779,7 @@
           "transpose_show": true,
           "transposed": true,
           "show_queries": false,
-            "title": "Organizations by doc credibility",
+            "title": "Organizations in relation to the credibility of tweets",
           "show_help_message": true,
           "info_mode": "markdown",
           "help_message": "Shows which **organization** are mentioned in articles which have various **credibility labels**.\nThe **organizations** have been found automatically via textual analysis\nThe **credibility labels** have also been found automatically via credibility analysis.\nThe idea of the table is to be able to identify which organizations are associated with (mis)information."            
@@ -825,19 +810,19 @@
           "spheres": false,
           "spyable": true,
           "show_queries": false,
-          "title": "Medical Conditions by doc credibility",
+          "title": "Medical Conditions by tweet credibility",
           "facet_pivot_strings": [
             "credibility_label",
             "medical_conditions"
           ],
           "show_help_message": true,
           "info_mode": "markdown",
-          "help_message": "Shows **medical conditions** linked to different **credibility labels**. Medical conditions are associated to credibilities if they are mentioned in a document that seems (not) credible.\n\nThe size of the circles corresponds to the number of documents."
+          "help_message": "Shows **medical conditions** linked to different **credibility labels**. Medical conditions are associated to credibilities if they are mentioned in a tweet that seems (not) credible.\n\nThe size of the circles corresponds to the number of tweets."
         }
       ]
     },
     {
-      "title": "Sample documents",
+      "title": "Examples of tweets",
       "height": "150px",
       "editable": false,
       "collapse": true,
@@ -949,7 +934,7 @@
             "enable": false,
             "interval": 2
           },
-          "title": "Example Documents",
+          "title": "Example Tweets",
           "enableSubrow": false,
           "subrowField": "content",
           "enableHyperlink": true,
@@ -978,7 +963,7 @@
           "title": "Overview of active filters",
           "show_help_message": true,
           "info_mode": "markdown",
-          "help_message": "### Overview of active filters for this dashboard\nThe *active filters* define which documents are shown in this dashboard. All other components in this dashboard (diagrams, tables, etc.) show data based on this set of filters.\n\nYou typically define this filters by using the filter components above (although some of the components below also allow you to click on specific values to define a new filter).\n\nYou can use this component to:\n\n*  **toggle** temporarily disable/enable a filter \n* **remove** a filter\n* **edit** a filter (mainly for more advanced users)\n\nYou can always reload the page to go back to the default set of filters."
+          "help_message": "### Overview of active filters for this dashboard\nThe *active filters* define which tweets are shown in this dashboard. All other components in this dashboard (diagrams, tables, etc.) show data based on this set of filters.\n\nYou typically define this filters by using the filter components above (although some of the components below also allow you to click on specific values to define a new filter).\n\nYou can use this component to:\n\n*  **toggle** temporarily disable/enable a filter \n* **remove** a filter\n* **edit** a filter (mainly for more advanced users)\n\nYou can always reload the page to go back to the default set of filters."
         },
         {
           "span": 2,
@@ -1012,7 +997,7 @@
               "type": "count",
               "field": "id",
               "decimalDigits": 0,
-              "label": "documents matching active filters",
+              "label": "tweets matching active filters",
               "value": "2200566"
             }
           ],
@@ -1023,7 +1008,7 @@
           "title": "Overview",
           "show_help_message": true,
           "info_mode": "markdown",
-          "help_message": "Shows the total number of documents that match the currently *active filters*. This is useful to receive feedback when you are manually toggling or editing filters."
+          "help_message": "Shows the total number of tweets that match the currently *active filters*. This is useful to receive feedback when you are manually toggling or editing filters."
         }
       ]
     }      
@@ -1069,5 +1054,7 @@
     "global_params": ""
   },
   "username": "guest",
+  "coinform": true,
+  "coinform_experimental": true,
   "home": false
 }
