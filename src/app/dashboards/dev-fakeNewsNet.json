@@ -818,5 +818,6 @@
     "global_params": ""
   },
   "username": "guest",
+  "coinform": true,
   "home": true
 }
