@@ -844,7 +844,7 @@
       "collapsable": true,
       "panels": [
         {
-          "span": 10,
+          "span": 12,
           "editable": false,
           "draggable": false,
           "type": "table",
