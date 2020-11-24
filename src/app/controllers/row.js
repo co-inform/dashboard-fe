@@ -16,6 +16,7 @@ function (angular, app, _) {
             showHeader: false,
             collapsable: true,
             editable: true,
+            dev_only: false,
             panels: []
         };
 
@@ -63,6 +64,11 @@ function (angular, app, _) {
             return _.reduce(_.pluck(panels, 'span'), function (p, v) {
                 return p + v;
             }, 0);
+        };
+
+        $scope.row_dev_hide = function(row) {
+            let result = dashboard.current.prod_mode && row.dev_only;
+            return result;
         };
 
         // This can be overridden by individual panels
