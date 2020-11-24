@@ -9,7 +9,7 @@
 
   <div force-chart style="overflow:hidden; position:relative"></div>
 
-  <form ng-submit="searchForNode()" class="form-inline force-search-box">
+  <form ng-submit="searchForNode()" class="form-inline force-search-box" ng-show="panel.searchable">
     <div class="form-group">
       <input type="text" bs-typeahead="taList" ng-model="searchQuery" class="form-control" data-delay="500" data-limit="15" on-select="searchForNode()"/>
       <button class="btn btn-primary">Search</button>

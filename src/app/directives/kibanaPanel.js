@@ -82,7 +82,7 @@ function (angular) {
             '</span>'+
           '</span>' +
 
-          '<span class="row-button row-text panel-title" ng-show="panel.title">' +
+          '<span class="row-button row-text panel-title" ng-show="panel.title" bs-tooltip="panelTooltip(panel)">' +
             '{{panel.title}}' +
           '</span>'+
 

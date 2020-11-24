@@ -16,6 +16,7 @@ function (angular, app, _) {
             showHeader: false,
             collapsable: true,
             editable: true,
+            dev_only: false,
             panels: []
         };
 
@@ -65,6 +66,11 @@ function (angular, app, _) {
             }, 0);
         };
 
+        $scope.row_dev_hide = function(row) {
+            let result = dashboard.current.prod_mode && row.dev_only;
+            return result;
+        };
+
         // This can be overridden by individual panels
         $scope.close_edit = function () {
             $scope.$broadcast('render');
@@ -74,6 +80,26 @@ function (angular, app, _) {
             $scope.row.panels.push(panel);
         };
 
+        $scope.panelTooltip = function(panel) {
+            if (!panel.show_help_message)
+                return null;
+            if (!panel.help_message)
+                return null;
+            if (panel.info_mode == "markdown") {
+                var converter = new Showdown.converter();
+                var textConverted = panel.help_message.replace(/&/g, '&amp;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/</g, '&lt;');
+                return converter.makeHtml(textConverted);
+            } else if (panel.info_mode == "html") {
+                return panel.help_message;
+            } else if (panel.info_mode == "text") {
+                return panel.help_message;
+            } else {
+                return "Unsupported tooltip with info_mode: " + panel.info_mode;
+            }
+        };
+        
         $scope.reset_panel = function (type) {
             var
                 defaultSpan = 4,

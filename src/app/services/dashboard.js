@@ -591,7 +591,7 @@ function (angular, $, kbn, _, config, moment, Modernizr) {
                     "description": save.title,
                     "public": false,
                     "files": {
-                        "kibana-dashboard.json": {
+                        "coinform-dashboard.json": {
                             "content": angular.toJson(save, true)
                         }
                     }
@@ -629,6 +629,41 @@ function (angular, $, kbn, _, config, moment, Modernizr) {
             }
         };
 
+      this.toggleProdModeKeyPress = function(event) {
+          let dboard = self.current;
+          if (!dboard) return;
+          if ((event.keyCode == 29) && event.ctrlKey) {
+              self.toggleProdMode(dboard);
+          }
+          // console.log("Not our key", event);
+      };  
+      document.addEventListener('keypress', this.toggleProdModeKeyPress);
+
+     this.toggleProdMode = function(dboard) {
+         dboard.prod_mode = !dboard.prod_mode;
+         console.debug("toggling prod mode to", dboard.prod_mode);
+         let enabled = dboard.prod_mode;
+         
+         dboard.editable = !enabled;
+         dboard.panel_hints = !enabled;
+         dboard.home = !enabled;
+         dboard.loader.save_local = !enabled;
+         
+         let setRowProdMode = r => {
+             r.editable = !enabled;
+             r.panels.forEach(p => {
+                 p.editable = !enabled;
+                 p.draggable = !enabled;
+             });
+         };
+         dboard.rows.forEach(setRowProdMode);
+         if (dboard.sideColumn) {
+             setRowProdMode(dboard.sideColumn);
+         };
+         
+         $rootScope.$broadcast('render'); //re-render all components
+     };
+        
       /**
        * Escape the given HTML string.
        *

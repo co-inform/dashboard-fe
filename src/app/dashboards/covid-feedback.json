@@ -1,6 +1,6 @@
 ﻿{
     "title": "COVID-19 (dis)information Dashboard",
-    "version": "v20201118",
+    "version": "v20201124",
   "services": {
     "query": {
       "idQueue": [
@@ -50,39 +50,12 @@
       ]
     }
   },
-  "rows": [
-    {
-      "title": "About this Dashboard",
-      "height": "50px",
-      "editable": false,
-      "collapse": true,
-        "collapsable": true,
-        "showFirstTime": true,
-      "panels": [
-        {
-          "error": false,
-          "span": 8,
-          "editable": false,
-          "draggable": false,            
-          "type": "text",
-          "loadingEditor": false,
-          "status": "Stable",
-          "mode": "markdown",
-          "content": "# Dashboard on covid-19 (dis)information\n\nThis dashboard shows an overview of tweets related to corona virus and covid-19, collected and analysed by the [Co-inform](https://coinform.eu) platform. \n\nThis dashboard allows you to:\n\n* select a subset of tweets (check the *Filters* tab)\n*  get an overview of how many tweets have been collected over time and have been assessed to have low **credibility** (check the *Overview of rated tweets* tab)\n* Get an overview of how many tweets have been collected over time in relation to their credibility/non-credibility status (Check the *Timelines of the retrieved tweets* tab)\n* **Explore correlations** between low credibility tweets and:\n** main words in those tweets\n** medical terminology mentioned in the tweets\n** organizations mentioned in the tweets\n** people mentioned in the tweets\n** (Check the *Tag clouds & Interactive graphs* tab)\n* Inspect details about a subset of tweets (Check the *Example of tweets* tab)\n\n## Main document sources \n\n* **[Twitter](https://twitter.com)**: mainly tweets with hashtags `#coronavirus`, `#covid-19`, `#bioweapon`\n* Various news sources (not corona virus related)\n  * [The Sun](https://www.thesun.co.uk)\n  * [Buzzfeed](https://www.buzzfeed.com/)\n  * [news.com.au](https://www.news.com.au/)\n  * [Seattle Times](https://www.seattletimes.com/)\n  * [Sputnik News](https://sputniknews.com/)\n  * [Daily Mail](https://www.dailymail.co.uk)\n  * [Daily Caller](https://dailycaller.com/)\n  * many others",
-          "style": {},
-          "title": "About this Dashboard",
-          "show_help_message": true,
-          "info_mode": "markdown",
-          "help_message": "Provides a short description about the dashboard, its goals and the sources used to populate the collection of tweets."
-        }          
-      ]
-    },
-    {
+  "sideColumn": {
       "title": "Filters",
       "height": "50px",
       "editable": false,
-      "collapse": true,
-      "collapsable": true,
+      "collapse": false,
+      "collapsable": false,
       "panels": [
         {
           "error": false,
@@ -93,7 +66,7 @@
           "loadingEditor": false,
           "status": "Stable",
           "mode": "markdown",
-          "content": "Use the *timepicker* and/or *filter*s to the right to filter the collected tweets by time, category(topic), credibility label, etc.",
+          "content": "Use the *filter by published date* and/or *filter*s below to filter the collected tweets by time, category(topic), credibility label, etc.",
           "style": {},
           "title": "Filter results"
         },
@@ -107,14 +80,13 @@
           "status": "Stable",
           "mode": "relative",
           "time_options": [
-            "1h",
-            "24h",
+            "1d",
             "7d",
-            "30d",
-            "90d",
-            "180d"
+            "1M",
+            "6M",
+            "1y"
           ],
-          "timespan": "90d",
+          "timespan": "1M",
           "timefield": "publishedDate",
           "timeformat": "",
           "spyable": true,
@@ -169,10 +141,38 @@
           "offset": 0,
           "show_help_message": true,
           "info_mode": "markdown",
-          "help_message": "Use this component to see (and define filters for) the main;\n\n* `categories` these are topics identified automatically using [Expert System](http://expertsystem.com)'s [Cogito](https://expertsystem.com/products/cogito-intelligence-platform/) natural language processing. \n* `credibility label`s: these are automatically assigned to tweets based on a state-of-the-art misinformation detection algorithm that tries to link sentences in tweets to previously fact-checked claims.  \n* `source_id`: name of the source of tweets, this is typically the website or twitter hashtag used to collect tweets.\n* `organizations`: which have been identified as being mentioned in the text\n* `people`: who have been mentioned in the text"
+          "help_message": "Use this component to see (and define filters for) the main;\n\n* `categories` these are topics identified automatically using [Expert System](http://expertsystem.com)'s [Cogito](https://expertsystem.com/products/cogito-intelligence-platform/) natural language processing. \n* `credibility label`s: these are automatically assigned to tweets based on a state-of-the-art misinformation detection algorithm that tries to link sentences in the collected tweets to previously fact-checked claims.  \n* `source_id`: name of the source typically refers to the website or twitter hashtag used to collect tweets.\n* `organizations`: which have been identified as being mentioned in the collected tweets\n* `people`: who have been mentioned in the collected tweets."
         }
       ]
     },
+  "rows": [
+    {
+      "title": "About this Dashboard",
+      "height": "50px",
+      "editable": false,
+      "collapse": true,
+        "collapsable": true,
+        "showFirstTime": true,
+      "panels": [
+        {
+          "error": false,
+          "span": 8,
+          "editable": false,
+          "draggable": false,            
+          "type": "text",
+          "loadingEditor": false,
+          "status": "Stable",
+          "mode": "markdown",
+          "content": "# Dashboard on covid-19 (dis)information\n\nThis dashboard shows an overview of tweets related to corona virus and covid-19, collected and analysed by the [Co-inform](https://coinform.eu) platform. \n\nThis dashboard allows you to:\n\n* select a subset of tweets (check the *Filters* tab)\n*  get an overview of how many tweets have been collected over time and have been assessed to have low **credibility** (check the *Overview of rated tweets* tab)\n* Get an overview of how many tweets have been collected over time in relation to their credibility/non-credibility status (Check the *Timelines of the retrieved tweets* tab)\n* **Explore correlations** between low credibility tweets and:\n  * main words in those tweets\n  * medical terminology mentioned in the tweets\n  * organizations mentioned in the tweets\n  * people mentioned in the tweets\n  * (Check the *Tag clouds & Interactive graphs* tab)\n* Inspect details about a subset of tweets (Check the *Example of tweets* tab)\n\n## Main document sources \n\n* **[Twitter](https://twitter.com)**: mainly tweets with hashtags `#coronavirus`, `#covid-19`, `#bioweapon`\n* Various news sources (not corona virus related)\n  * [The Sun](https://www.thesun.co.uk)\n  * [Buzzfeed](https://www.buzzfeed.com/)\n  * [news.com.au](https://www.news.com.au/)\n  * [Seattle Times](https://www.seattletimes.com/)\n  * [Sputnik News](https://sputniknews.com/)\n  * [Daily Mail](https://www.dailymail.co.uk)\n  * [Daily Caller](https://dailycaller.com/)\n  * many others",
+          "style": {},
+          "title": "About this Dashboard",
+          "show_help_message": true,
+          "info_mode": "markdown",
+          "help_message": "Provides a short description about the dashboard, its goals and the sources used to populate the collection of tweets."
+        }          
+      ]
+    },
+    
     {
       "title": "Overview of Rated Tweets",
       "height": "150px",
@@ -361,7 +361,7 @@
           "help_message": "Shows the number of tweets matching the *active filters* (set above) that have been  automatically assessed to be either **credible** or **mostly credible**. You can use the table at the bottom of this dashboard to inspect the *credibility explanation* for some example tweets."            
         },
         {
-          "span": 2,
+          "span": 4,
           "editable": false,
           "draggable": false,
           "type": "terms",
@@ -782,12 +782,13 @@
             "title": "Organizations in relation to the credibility of tweets",
           "show_help_message": true,
           "info_mode": "markdown",
-          "help_message": "Shows which **organization** are mentioned in articles which have various **credibility labels**.\nThe **organizations** have been found automatically via textual analysis\nThe **credibility labels** have also been found automatically via credibility analysis.\nThe idea of the table is to be able to identify which organizations are associated with (mis)information."            
+          "help_message": "Shows which **organization** are mentioned in articles which have various **credibility labels**.\n\nThe **organizations** have been found automatically via textual analysis.\n\nThe **credibility labels** have also been found automatically via credibility analysis.\n\nThe idea of the table is to be able to identify which organizations are associated with (mis)information.\n\nYou can click on the squares to add filters for the corresponding combination of organization and credibility. You can also click on the labels to sort the columns/rows in the table."
         },
         {
           "span": 3,
           "editable": false,
-          "draggable": false,
+            "draggable": false,
+            "searchable": false,
           "type": "force",
           "loadingEditor": false,
           "queries": {
@@ -945,6 +946,7 @@
     },
     {
       "title": "Active Filters (advanced)",
+      "dev_only": true,
       "height": "50px",
       "editable": false,
       "collapse": true,
@@ -1013,7 +1015,8 @@
       ]
     }      
   ],
-  "editable": true,
+  "editable": false,
+  "prod_mode": true,
   "index": {
     "interval": "none",
     "pattern": "[logstash-]YYYY.MM.DD",
@@ -1025,7 +1028,7 @@
   "loader": {
     "save_gist": false,
     "save_elasticsearch": false,
-    "save_local": true,
+    "save_local": false,
     "save_default": false,
     "save_temp": true,
     "save_temp_ttl_enable": true,

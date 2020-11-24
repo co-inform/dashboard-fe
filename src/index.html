@@ -74,6 +74,7 @@
       <div class="sidebar-filters" ng-controller='SideColumnCtrl' ng-init="init()">
         <!-- TODO: honor span? -->
         <div ng-repeat="(name, panel) in dashboard.current.sideColumn.panels|filter:isPanel"
+             ng-init="row = dashboard.current.sideColumn"
              ng-hide="panel.span == 0 || panel.hide"
              class="row-fluid panel"
              style="min-width:{{dashboard.current.sideColumn.width}}; position:relative">
