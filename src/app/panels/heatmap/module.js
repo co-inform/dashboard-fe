@@ -158,7 +158,8 @@ define([
                 $scope.hcrow = [];
                 $scope.hccol = [];
                 $scope.internal_sum = [];
-                $scope.domain = [Number.MAX_VALUE,0];
+                //$scope.domain = [Number.MAX_VALUE,0];
+                $scope.domain = [0,0];
                 $scope.axis_labels = [$scope.panel.col_field, $scope.panel.row_field];
             };
 
@@ -287,20 +288,21 @@ define([
 
                         const TICK_LENGTH = 10;
                         const MARGIN = 15;
-                        const MAX_LABEL_LENGTH = 10;
+                        const MAX_COLUMN_LABEL_LENGTH = 15;
+                        const MAX_ROW_LABEL_LENGTH = 10;
 
                         const INTENSITY = 3;
 
                         const LEGEND = {
                             height: 20,
-                            width: parent_width / 2,
+                            width: 0.75 * parent_width,
                             margin: 10,
                             text_margin: 10,
                             text_height: 15
                         };
 
                         const labels = {
-                            top: 90,
+                            top: 60,
                             left: 120
                         };
                         
@@ -309,6 +311,7 @@ define([
                         var data = jQuery.extend(true, [], scope.data); // jshint ignore:line
                         
                         var intensity_domain = d3.scale.linear().domain(scope.domain).range([-INTENSITY, INTENSITY]);
+                        //var intensity_domain = d3.scale.linear().domain(scope.domain).range([0, INTENSITY]);
                         
                         data = _.map(data, function(d){
                             return{
@@ -327,7 +330,7 @@ define([
                         var rowSortOrder = false,
                             colSortOrder = false;
 
-                        var cell_color = scope.panel.color;
+                        var cell_color = "#693c53"; //scope.panel.color;
 
                         var hcrow, hccol, rowLabel, colLabel;
                         // jshint ignore:start
@@ -358,8 +361,8 @@ define([
                             .enter()
                             .append("text")
                             .text(function (d) {
-                                if(d.length > MAX_LABEL_LENGTH) {
-                                    return d.substring(0, MAX_LABEL_LENGTH) + '...';
+                                if(d.length > MAX_ROW_LABEL_LENGTH) {
+                                    return d.substring(0, MAX_ROW_LABEL_LENGTH) + '...';
                                 } else {
                                     return d;
                                 }
@@ -405,19 +408,23 @@ define([
                             .enter()
                             .append("text")
                             .text(function (d) {
-                                if(d.length > MAX_LABEL_LENGTH) {
-                                    return d.substring(0, MAX_LABEL_LENGTH) + '...';
+                                if(d.length > MAX_COLUMN_LABEL_LENGTH) {
+                                    return d.substring(0, MAX_COLUMN_LABEL_LENGTH) + '...';
                                 } else {
                                     return d;
                                 }
                             })
-                            .attr("x", -labels.top)
-                            .attr("y", function (d, i) {
-                                return 100 + hccol.indexOf(i + 1) * cell_width;
-                            })
+                            // .attr("x", -labels.top)
+                            // .attr("y", function (d, i) {
+                            //     return 100 + hccol.indexOf(i + 1) * cell_width;
+                            // })
                             .attr("text-anchor", "start")
                             .attr("alignment-baseline", "middle")
-                            .attr("transform", "translate(" + cell_width / 2 + ", 0) rotate (-90)")
+                            .attr("transform", function (d, i) {
+                                let xOffset = 100 + hccol.indexOf(i + 1) * cell_width; 
+                                let yOffset = labels.top; 
+                                return "translate(" + xOffset + ", " + yOffset + ") rotate(-35)";
+                            })
                             .attr("class", function () {
                                 return "colLabel_" + scope.generated_id + " axis-label";
                             })
@@ -581,29 +588,30 @@ define([
                             .attr("width", LEGEND.width)
                             .attr("height", LEGEND.height)
                             .attr("fill", "url('#legendGradient_" + scope.generated_id + "')");
-                            
+
+                        let legendNumTicks = 8;
                         legend.append("g")
                             .selectAll(".legendt")
-                            .data(d3.range(11))
+                            .data(d3.range(legendNumTicks + 1))
                             .enter()
                             .append("line")
                             .attr("x1", (d) => {
-                                return parseInt(d * LEGEND.width / 10);
+                                return parseInt(d * LEGEND.width / legendNumTicks);
                             })
                             .attr("y1", LEGEND.height - TICK_LENGTH)
                             .attr("x2", (d) => {
-                                return parseInt(d * LEGEND.width / 10);
+                                return parseInt(d * LEGEND.width / legendNumTicks);
                             })
                             .attr("y2", LEGEND.height)
                             .attr("class", "tick");
 
                         legend.append("g")
                             .selectAll(".legendl")
-                            .data(d3.range(11))
+                            .data(d3.range(legendNumTicks + 1))
                             .enter()
                             .append("text")
                             .attr("x", (d) => {
-                                return parseInt(d * LEGEND.width / 10);
+                                return parseInt(d * LEGEND.width / legendNumTicks);
                             })
                             .attr("y", parseInt(LEGEND.height + 15))
                             .text((d) => {
@@ -649,9 +657,14 @@ define([
                                     return sorted.indexOf(d.col - 1) * cell_width;
                                 });
                                 t.selectAll(".colLabel_" + scope.generated_id)
-                                .attr("y", function (d, i) {
-                                    return 100 + sorted.indexOf(i) * cell_width;
-                                });
+                                    .attr("transform", function (d, i) {
+                                        let xOffset = 100 + sorted.indexOf(i) * cell_width; 
+                                        let yOffset = labels.top; 
+                                        return "translate(" + xOffset + ", " + yOffset + ") rotate(-35)";
+                                    });
+                                // .attr("y", function (d, i) {
+                                //     return 100 + sorted.indexOf(i) * cell_width;
+                                // });
                             } else { // sorting by columns
                                 sorted = d3.range(row_number).sort(function (a, b) {
                                     var value;
