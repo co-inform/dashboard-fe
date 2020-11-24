@@ -955,8 +955,10 @@ to{background-position:0 0}
 .row-button{border-left:1px solid #fff;border-right:1px solid #e6e6e6;padding:2px 7px 0;float:left}
 .row-text{text-transform:uppercase;font-weight:700;font-size:1.2em;font-family:'Capriola',sans-serif;}
 .row-close{border-top:1px solid #fff;padding:0;margin:0;min-height:24px!important;line-height:24px;background-color:#693C5E;color:#fff}
+.row-close span a.nolink { color: white;}
 .row-open{text-align:right;left:-18px;font-size:13pt;font-weight:200}
 .row-open i{font-size:10pt}
+.row-open span a.nolink { color: white;}
 .odd{background-color:#f9f9f9}
 .nomargin{margin:0}
 .ng-cloak,[ng-cloak],[ng\:cloak]{display:none!important}
