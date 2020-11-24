@@ -55,6 +55,7 @@ define([
         spheres: true,
         spyable: true,
         show_queries: true,
+        searchable: true,  
       };
 
       _.defaults($scope.panel, _d);
