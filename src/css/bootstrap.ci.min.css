@@ -811,12 +811,19 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner{padding:0;
 .modal-footer .btn-block+.btn-block{margin-left:0}
 .tooltip{z-index:1030;display:block;visibility:visible;font-size:11px;line-height:1.4;opacity:0;filter:alpha(opacity=0)}
 .popover,.popover-title:empty{display:none}
+.tooltip h1,h2,h3{line-height:20px}
+.tooltip h1{font-size:21.5px}
+.tooltip h2{font-size:18.5px}
+.tooltip h1 small,h3{font-size:16.5px}
+.tooltip h2 small,h4{font-size:14.5px}
+.tooltip h3 small,h4 small,h5{font-size:12px}
+.tooltip h6{font-size:10.9px}
 .tooltip.in{opacity:.8;filter:alpha(opacity=80)}
 .tooltip.top{margin-top:-3px;padding:5px 0}
 .tooltip.right{margin-left:3px;padding:0 5px}
 .tooltip.bottom{margin-top:3px;padding:5px 0}
 .tooltip.left{margin-left:-3px;padding:0 5px}
-.tooltip-inner{max-width:200px;padding:8px;color:#fff;text-align:center;text-decoration:none;background-color:#693C5E;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px}
+.tooltip-inner{max-width:250px;padding:8px;color:#fff;text-align:center;text-decoration:none;background-color:#693C5E;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px}
 .tooltip-arrow{width:0;height:0;border-color:transparent;border-style:solid}
 .tooltip.top .tooltip-arrow{bottom:0;left:50%;margin-left:-5px;border-width:5px 5px 0;border-top-color:#000}
 .tooltip.right .tooltip-arrow{top:50%;left:0;margin-top:-5px;border-width:5px 5px 5px 0;border-right-color:#000}
