@@ -24,8 +24,14 @@ function (angular, app, _, moment, kbn, $) {
   'use strict';
 
   var module = angular.module('kibana.panels.timepicker', []);
-  app.useModule(module);
+    app.useModule(module);
 
+  const US_DATE_FMT = "MM/DD/YYYY";
+  const EU_DATE_FMT = "DD/MM/YYYY";
+  const TIME_FMT = "HH:mm:ss";
+  const US_DATETIME_FMT = US_DATE_FMT + " " + TIME_FMT;
+  const EU_DATETIME_FMT = EU_DATE_FMT + " " + TIME_FMT;
+    
   module.controller('timepicker', function($scope, $rootScope, $timeout, timer, $http, dashboard, filterSrv) {
     $scope.panelMeta = {
       modals: [{
@@ -66,13 +72,13 @@ function (angular, app, _, moment, kbn, $) {
       switch($scope.panel.mode) {
       case 'absolute':
         $scope.time = {
-          from : moment($scope.panel.time.from,'MM/DD/YYYY HH:mm:ss') || moment(kbn.time_ago($scope.panel.timespan)),
-          to   : moment($scope.panel.time.to,'MM/DD/YYYY HH:mm:ss') || moment()
+          from : moment($scope.panel.time.from,EU_DATETIME_FMT) || moment(kbn.time_ago($scope.panel.timespan)),
+          to   : moment($scope.panel.time.to,EU_DATETIME_FMT) || moment()
         };
         break;
       case 'since':
         $scope.time = {
-          from : moment($scope.panel.time.from,'MM/DD/YYYY HH:mm:ss') || moment(kbn.time_ago($scope.panel.timespan)),
+          from : moment($scope.panel.time.from,EU_DATETIME_FMT) || moment(kbn.time_ago($scope.panel.timespan)),
           to   : moment()
         };
         break;
@@ -146,8 +152,8 @@ function (angular, app, _, moment, kbn, $) {
       if($scope.panel.mode !== 'relative') {
 
         $scope.panel.time = {
-          from : $scope.time.from.format("MM/DD/YYYY HH:mm:ss"),
-          to : $scope.time.to.format("MM/DD/YYYY HH:mm:ss"),
+          from : $scope.time.from.format(EU_DATETIME_FMT),
+          to : $scope.time.to.format(EU_DATETIME_FMT),
         };
       } else {
         delete $scope.panel.time;
@@ -164,16 +170,16 @@ function (angular, app, _, moment, kbn, $) {
 
     $scope.to_now = function() {
       $scope.timepicker.to = {
-        time : moment().format("HH:mm:ss"),
-        date : moment().format("MM/DD/YYYY")
+        time : moment().format(TIME_FMT),
+        date : moment().format(EU_DATE_FMT)
       };
     };
 
     $scope.set_timespan = function(timespan) {
       $scope.panel.timespan = timespan;
       $scope.timepicker.from = {
-        time : moment(kbn.time_ago(timespan)).format("HH:mm:ss"),
-        date : moment(kbn.time_ago(timespan)).format("MM/DD/YYYY")
+        time : moment(kbn.time_ago(timespan)).format(TIME_FMT),
+        date : moment(kbn.time_ago(timespan)).format(EU_DATE_FMT)
       };
       $scope.time_apply();
     };
@@ -195,11 +201,11 @@ function (angular, app, _, moment, kbn, $) {
         var timeNumber = $scope.panel.timespan.substr(0, $scope.panel.timespan.length-1);
 
         from = $scope.panel.mode === 'relative' ? moment().subtract(timeShorthand,timeNumber) :
-          moment(moment($scope.timepicker.from.date).format('MM/DD/YYYY') + " " + $scope.timepicker.from.time,'MM/DD/YYYY HH:mm:ss');
+          moment(moment($scope.timepicker.from.date).format(EU_DATE_FMT) + " " + $scope.timepicker.from.time,EU_DATETIME_FMT);
         // from = $scope.panel.mode === 'relative' ? moment(kbn.time_ago($scope.panel.timespan)) :
         //   moment(moment.utc($scope.timepicker.from.date).format('MM/DD/YYYY') + " " + $scope.timepicker.from.time,'MM/DD/YYYY HH:mm:ss');
         to = $scope.panel.mode !== 'absolute' ? moment() :
-          moment(moment($scope.timepicker.to.date).format('MM/DD/YYYY') + " " + $scope.timepicker.to.time,'MM/DD/YYYY HH:mm:ss');
+          moment(moment($scope.timepicker.to.date).format(EU_DATE_FMT) + " " + $scope.timepicker.to.time,EU_DATETIME_FMT);
         
       // Otherwise (probably initialization)
       } else {
@@ -232,6 +238,20 @@ function (angular, app, _, moment, kbn, $) {
       };
     };
 
+    $scope.describe_interval = interval => {
+       let ival = kbn.describe_interval(interval);
+       let interval_labels = {
+           y: "year",
+           M: "month",
+           w: "week",
+           d: "day",
+           h: "hour",
+           m: "minute",
+           s: "second"
+       };
+       return "" + ival.count + " " + interval_labels[ival.type] + (ival.count > 1 ? "s" : "");
+   };
+      
     $scope.time_apply = function() {
       // Update internal time object
       $scope.panel.error = "";
@@ -247,10 +267,10 @@ function (angular, app, _, moment, kbn, $) {
       // This add-back-one-day does not affect browser time that is before UTC (e.g. UTC+7)
       // NOTES: the skip-back-one-day could be a bug in angular-strap timepicker. So the solution here is a workaround.
       if ($scope.timepicker.from.date instanceof Date) {
-        $scope.timepicker.from.date = moment.utc($scope.timepicker.from.date.toISOString()).format('MM/DD/YYYY');
+        $scope.timepicker.from.date = moment.utc($scope.timepicker.from.date.toISOString()).format(EU_DATE_FMT);
       }
       if ($scope.timepicker.to.date instanceof Date) {
-        $scope.timepicker.to.date = moment.utc($scope.timepicker.to.date.toISOString()).format('MM/DD/YYYY');
+        $scope.timepicker.to.date = moment.utc($scope.timepicker.to.date.toISOString()).format(EU_DATE_FMT);
       }
 
       $scope.time = $scope.time_calc();
@@ -301,6 +321,9 @@ function (angular, app, _, moment, kbn, $) {
             timeNumber = timeNumber * 7;
             timeUnit = 'DAY';
             break;
+          case 'M':
+            timeUnit = 'MONTHS';
+            break;  
           case 'y':
             timeUnit = 'YEAR';
             break;
@@ -330,12 +353,12 @@ function (angular, app, _, moment, kbn, $) {
       // Janky 0s timeout to get around $scope queue processing view issue
       $scope.timepicker = {
         from : {
-          time : from.format("HH:mm:ss"),
-          date : from.format("MM/DD/YYYY")
+          time : from.format(TIME_FMT),
+          date : from.format(EU_DATE_FMT)
         },
         to : {
-          time : to.format("HH:mm:ss"),
-          date : to.format("MM/DD/YYYY")
+          time : to.format(TIME_FMT),
+          date : to.format(EU_DATE_FMT)
         }
       };
     }
