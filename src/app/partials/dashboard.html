@@ -3,7 +3,7 @@
     <!-- Rows -->
     <div class="row-fluid kibana-row" ng-controller="RowCtrl" ng-repeat="(row_name, row) in dashboard.current.rows"
          ng-style="row_style(row)">
-      <div class="row-control" ng-hide="row_dev_hide(row)">
+      <div id="row-{{$index}}" class="row-control" ng-hide="row_dev_hide(row)">
             <div class="row-fluid" style="padding:0px;margin:0px;position:relative;">
                 <div class="row-close span12" ng-show="row.showHeader" data-placement="bottom">
                     <span class="row-button" bs-modal="'app/partials/roweditor.html'" class="pointer">

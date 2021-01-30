@@ -152,7 +152,17 @@
 
 <!-- Configure menu -->
 <li ng-show="dashboard.current.editable " bs-tooltip="'Configure dashboard'" data-placement="bottom">
-    <a title="Configuration" alt="Configuration" href='#' bs-modal="'app/partials/dasheditor.html'"><i class='icon-cog pointer'></i></a>
+  <a title="Configuration" alt="Configuration" href='#' bs-modal="'app/partials/dasheditor.html'">
+    <i class='icon-cog pointer'></i>
+  </a>
+</li>
+
+<!-- Show intro -->
+<li id="startTutorial" class="dropdown" bs-tooltip="'Start Tutorial'">
+  <a ng-click="show_intro()">
+    tutorial
+    <!-- <i class='icon-question'></i> -->
+  </a>
 </li>
 
 <!-- Log-in/profile menu -->

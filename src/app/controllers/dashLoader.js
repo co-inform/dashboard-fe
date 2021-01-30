@@ -8,7 +8,7 @@ function (angular, _, config) {
 
     var module = angular.module('kibana.controllers');
 
-    module.controller('dashLoader', function ($scope, $http, timer, dashboard, alertSrv, ciUser) {
+    module.controller('dashLoader', function ($scope, $http, timer, dashboard, alertSrv, ciUser, introService) {
         var self = this;
         // Solr and Fusion uses different field names for their schema.
         // Solr uses banana-int collection, and Fusion uses system_banana collection.
@@ -71,6 +71,17 @@ function (angular, _, config) {
             };
         };
 
+        $scope.show_intro = function() {
+            console.log('Starting demo');
+            introService.start();
+        };
+
+
+        $scope.$on("showIntro", function() {
+            console.log('Got event showIntro');
+            //introService.start();
+        });
+        
         $scope.showDropdown = function (type) {
             // var _l = $scope.loader;
             var _l = dashboard.current.loader || $scope.loader;

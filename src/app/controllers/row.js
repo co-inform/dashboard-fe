@@ -8,7 +8,7 @@ function (angular, app, _) {
 
     var module = angular.module('kibana.controllers');
 
-    module.controller('RowCtrl', function ($scope, $rootScope, $timeout, dashboard, ejsResource, sjsResource, querySrv) {
+    module.controller('RowCtrl', function ($scope, $rootScope, $timeout, dashboard, ejsResource, sjsResource, querySrv, introService) {
         var _d = {
             title: "Row",
             height: "150px",
@@ -21,6 +21,80 @@ function (angular, app, _) {
         };
 
         _.defaults($scope.row, _d);
+
+        
+        let renderHelpMessage = function(item) {
+            if (!item.help_message)
+                return "No help message available";
+            if (item.info_mode == "markdown") {
+                var converter = new Showdown.converter();
+                var textConverted = item.help_message.replace(/&/g, '&amp;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/</g, '&lt;');
+                return converter.makeHtml(textConverted);
+            } else if (item.info_mode == "html") {
+                return item.help_message;
+            } else if (item.info_mode == "text") {
+                return item.help_message;
+            } else {
+                return "Unsupported tooltip with info_mode: " + panel.info_mode;
+            }
+        };
+
+        let dboardToIntroOptions = function() {
+            let sideCol = dashboard.current.sideColumn;
+            let steps = [];
+            if (sideCol) {
+                let step0 = {
+                    element:'#startTutorial',
+                    intro: renderHelpMessage(dashboard.current) || "It looks like this is your first visit (to this version of the dashboard).<br>Follow this tutorial to get acquainted with the dashboard. You can always start this tutorial by clicking on the highlighted button.",
+                    position: 'left'
+                };
+                let stepA = {
+                    element: '#sideBarOpenBtn',
+                    intro: sideCol.help_message_collapsed
+                };
+                let stepB = {
+                    element: '#mySidebar',
+                    intro: renderHelpMessage(sideCol),
+                    position: 'right'
+                };
+                steps.push(step0);
+                steps.push(stepA);
+                steps.push(stepB);
+            }
+            dashboard.current.rows.forEach((row, index) => {
+                if (row.dev_only) return;
+                steps.push({
+                    element: '#row-' + index,
+                    intro: renderHelpMessage(row) || row.title
+                });
+                return;
+            });
+            let finalStep = {
+                element: '#startTutorial',
+                intro: renderHelpMessage({
+                    info_mode: "markdown",
+                    help_message: "### Dashboard Tutorial\nThis concludes this tutorial. Remember you can always (re)start this tutorial by clicking on the *tutorial* button on the top right.\nThanks for using this dashboard.",
+                    position: 'left'
+                })
+            };
+            steps.push(finalStep);
+            return {steps: steps};
+        };
+        introService.clear();
+        let handleIntroBeforeChange = function(targetElt) {
+            console.log('On Before Change to', targetElt);
+            if (targetElt.id == 'mySidebar') openNav();
+        };
+        let introOptions = dboardToIntroOptions();
+        introService.setOptions(introOptions);
+        introService.addHints();
+        introService.addListener('ciListener', function(event, payload) {
+            console.debug('Intro event', event, 'with payload', payload);
+        });
+        introService.onBeforeChange(handleIntroBeforeChange);
+
         if ($scope.row.showFirstTime) {
             console.log('Loading row for dboard', dashboard);
             let myStorage = window.localStorage;
@@ -32,6 +106,8 @@ function (angular, app, _) {
                 // the user has not seen this row yet, so make sure it's not collapsed
                 $scope.row.collapse = false;
                 myStorage.setItem(dboardSeenKey, 'yes'); // and remember the user has now seen it
+                setTimeout(function(){ 
+                    introService.start();}, 500);
             }
         }
         $scope.row.showHeader = dashboard.current.coinform_experimental || $scope.row.collapse; //initially, make sure these are aligned
@@ -71,6 +147,10 @@ function (angular, app, _) {
             return result;
         };
 
+        $scope.rowIntroHelpMessage = function(row) {
+            return row.help_message;
+        };
+
         // This can be overridden by individual panels
         $scope.close_edit = function () {
             $scope.$broadcast('render');
@@ -80,24 +160,13 @@ function (angular, app, _) {
             $scope.row.panels.push(panel);
         };
 
+        
         $scope.panelTooltip = function(panel) {
             if (!panel.show_help_message)
                 return null;
             if (!panel.help_message)
                 return null;
-            if (panel.info_mode == "markdown") {
-                var converter = new Showdown.converter();
-                var textConverted = panel.help_message.replace(/&/g, '&amp;')
-                    .replace(/>/g, '&gt;')
-                    .replace(/</g, '&lt;');
-                return converter.makeHtml(textConverted);
-            } else if (panel.info_mode == "html") {
-                return panel.help_message;
-            } else if (panel.info_mode == "text") {
-                return panel.help_message;
-            } else {
-                return "Unsupported tooltip with info_mode: " + panel.info_mode;
-            }
+            return renderHelpMessage(panel);
         };
         
         $scope.reset_panel = function (type) {
@@ -117,8 +186,9 @@ function (angular, app, _) {
             if (!row.collapsable) return "";
             if (row.collapse) return "(click to expand)";
             return "(click to collapse)";
-        }
+        };
 
         $scope.init();
     });
+
 });

@@ -114,7 +114,7 @@ function (angular, $, kbn, _, config, moment, Modernizr) {
             self.indices = [];
             route();
         });
-
+        
         var route = function () {
             // Is there a dashboard type and id in the URL?
             if (!(_.isUndefined($routeParams.kbnType)) && !(_.isUndefined($routeParams.kbnId))) {
@@ -223,6 +223,7 @@ function (angular, $, kbn, _, config, moment, Modernizr) {
         };
 
         var dash_defaults = function (dashboard) {
+            console.log('Setting default for', dashboard);
             _.defaults(dashboard, _dash);
             _.defaults(dashboard.index, _dash.index);
             _.defaults(dashboard.loader, _dash.loader);
@@ -324,6 +325,7 @@ function (angular, $, kbn, _, config, moment, Modernizr) {
             try {
                 _r = angular.fromJson(rendered);
             } catch (e) {
+                console.error(e);
                 _r = false;
             }
             return _r;
@@ -341,6 +343,7 @@ function (angular, $, kbn, _, config, moment, Modernizr) {
                 if (!result) {
                     return false;
                 }
+                console.log('Loading dash from file', file, result);
                 self.dash_load(dash_defaults(result.data));
                 return true;
             }, function () {

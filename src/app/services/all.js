@@ -9,6 +9,7 @@ define([
   './panelMove',
   './solrSrv',
   './lucidworksSrv',
-  './ciUser'
+  './ciUser',
+  './introService'
 ],
 function () {});
