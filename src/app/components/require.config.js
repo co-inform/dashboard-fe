@@ -14,6 +14,7 @@ require.config({
     text:                     '../vendor/require/text',
     moment:                   '../vendor/moment',
     filesaver:                '../vendor/filesaver',
+    intro:                    '../vendor/intro-2.5.0',
 
     angular:                  '../vendor/angular/angular',
     'angular-dragdrop':       '../vendor/angular/angular-dragdrop',
@@ -96,6 +97,7 @@ require.config({
     'angular-resource':     ['angular'],
     'angular-route':        ['angular'],
     'angular-touch':        ['angular'],
+    'angular-introjs':      ['angular', 'intro.js'],
 
     'angular-strap':        ['angular', 'bootstrap','timepicker', 'datepicker'],
 

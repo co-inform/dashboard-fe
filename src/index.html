@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/animate.min.css">
     <link rel="stylesheet" href="css/normalize.min.css">
     <link rel="stylesheet" href="css/rotate.css">
+    <link rel="stylesheet" href="css/introjs.css">
     <link href="https://fonts.googleapis.com/css2?family=Capriola&family=Roboto&display=swap" rel="stylesheet">
     <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
     <!-- load the root require context -->
@@ -58,7 +59,8 @@
             <img src="img/00_CO_INFORM_LOGO_OK-59.png" data-placement="bottom" style="height:37px;">
             {{dashboard.current.title}} <it style="font-size: 70%;">{{dashboard.current.version}}</it>
           </span>
-          <ul class="nav pull-right" ng-controller='dashLoader' ng-init="init()" ng-include="'app/partials/dashLoader.html'">
+          <ul class="nav pull-right" ng-controller='dashLoader' ng-init="init()"
+              ng-include="'app/partials/dashLoader.html'">
           </ul>
         </div>
       </div>
@@ -92,8 +94,10 @@
         </div>
       </div>
     </div>
-    <button class="openbtn" onclick="openNav()" title="Open sidebar"
-            ng-show="dashboard.current.sideColumn.panels.length > 0">☰</button>  
+    <button id="sideBarOpenBtn" class="openbtn" onclick="openNav()"
+            bs-tooltip="'Open filter+dashboard.current.sideColumn.title+'"
+            titles="'+dashboard.current.sideColumn.title+'"
+            ng-show="dashboard.current.sideColumn.panels.length > 0">☰ </button>  
     <div id="main" class="container-fluid main">
       <div class="row-fluid">
         <div ng-view></div>

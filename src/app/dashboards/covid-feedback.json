@@ -1,6 +1,8 @@
 ﻿{
     "title": "COVID-19 (dis)information Dashboard",
-    "version": "v20201124",
+    "version": "v20201125",
+    "info_mode": "markdown",
+    "help_message": "### Dashboard Tutorial\n\nA Co-inform dashboard shows a collection of **documents** (mainly tweets) that have been collected from various **sources** (e.g. a hashtag, usernames, keywords, websites).\n\nWhile there are many similar dashboards on-line, this one is special as it includes estimations by an artificial intelligence about the **credibility** of such documents. You can use this dashboard to *get an idea of the prevalence of misinformation* in the collection of documents.\n\nIn general, feel free to click and explore .\n\nFollow this tutorial to get acquainted the dashboard. You can always (re)start this tutorial by clicking on the *tutorial* button on the top right.",
   "services": {
     "query": {
       "idQueue": [
@@ -56,6 +58,9 @@
       "editable": false,
       "collapse": false,
       "collapsable": false,
+      "info_mode": "markdown",
+      "help_message_collapsed": "Open sidebar to select filters by date published, topics and more",
+      "help_message": "### Filter Sidebar\nUse this to define:\n\n* the *published date* of the tweets to show in the dashboard. By default, the last month.\n* additional filters about categories (topics), credibility labels, sources (where the tweets came from) or people and organizations mentioned in the tweets.\n\nThese filters narrow or expand the number of tweets shown in the rest of the dashboard. If you see *empty graphs* on the right, you may have selected a combination of filters without matching tweets; in such cases you can always refresh the page to come back to the original set of pre-defined filters.",
       "panels": [
         {
           "error": false,
@@ -101,7 +106,7 @@
           "help_message": "Use this *timepicker* to restrict the dashboard to tweets published in the selected time frame.",
           "title": "Filter by published date"
         },
-        {
+       {
           "span": 5,
           "editable": false,
           "draggable": false,
@@ -151,8 +156,10 @@
       "height": "50px",
       "editable": false,
       "collapse": true,
-        "collapsable": true,
-        "showFirstTime": true,
+      "collapsable": true,
+      "showFirstTime": true,
+      "info_mode": "markdown",
+      "help_message": "Shows an introduction about what you can do with this dashboard and where the data in this particular dashboard come from (i.e. the **sources**).",        
       "panels": [
         {
           "error": false,
@@ -172,13 +179,14 @@
         }          
       ]
     },
-    
     {
       "title": "Overview of Rated Tweets",
       "height": "150px",
       "editable": false,
       "collapse": false,
       "collapsable": true,
+      "info_mode": "markdown",
+      "help_message": "### Shows overall counts of tweets:\n\n* how many match the filters defined in the sidebar,\n* how many of those have been *rated* by our artificial intelligence and\n* a summary of their credibility (according to our AI)\n\nHere and in the rest of the dashboard, feel free to click on the **i**nformation buttons (or hover on the titles) to get a more detailed description of what the data means.",
       "panels": [
         {
           "span": 2,
@@ -475,6 +483,8 @@
       "editable": false,
       "collapse": false,
       "collapsable": true,
+      "info_mode": "markdown",
+      "help_message": "### Shows when tweets were published. \nOnly the tweets which match the **active filters** (defined in the *filter sidebar*) are shown. In some cases, collected tweets may not provide the original publish date, in such cases the date when we collected the tweets is reported.",
       "panels": [
         {
           "span": 12,
@@ -513,7 +523,7 @@
             "1M",
             "1y"
           ],
-          "fill": 1,
+          "fill": 0,
           "linewidth": 3,
           "timezone": "browser",
           "spyable": true,
@@ -551,6 +561,8 @@
       "editable": false,
       "collapse": false,
       "collapsable": true,
+      "info_mode": "markdown",
+      "help_message": "Shows when **not credible** tweets were published",
       "panels": [
         {
           "span": 12,
@@ -627,6 +639,8 @@
       "editable": false,
       "collapse": false,
       "collapsable": true,
+      "info_mode": "markdown",
+      "help_message": "Shows when **credible** tweets were published",
       "panels": [
         {
           "span": 12,
@@ -696,13 +710,15 @@
           "help_message": "### Shows when **credible** tweets were published. \nOnly the tweets which match the **active filters** and are either **credible** or **mostly credible** are shown. In some cases, collected tweets may not provide the original publish date, in such cases the date when we collected the tweets is reported."                        
         }
       ]
-},      
+    },      
     {
-      "title": "Tag clouds & interactive graphs",
+      "title": "Tag clouds",
       "height": "350px",
       "editable": false,
       "collapse": false,
       "collapsable": true,
+      "info_mode": "markdown",
+      "help_message": "Shows frequent words associated with credible or not credible tweets",
       "panels": [
         {
           "span": 3,
@@ -720,7 +736,7 @@
           },
           "field": "main_elements",
           "size": 15,
-          "alignment": "vertical and horizontal",
+          "alignment": "horizontal",
           "fontScale": 10,
           "ignoreStopWords": false,
           "spyable": true,
@@ -741,12 +757,38 @@
             "ids": [
               0
             ],
+            "query": "q=*&wt=json&rows=0&fq=publishedDate:[NOW-90DAY%20TO%20NOW%2B1DAY]&facet=true&facet.field=main_elements&facet.limit=10",
+            "custom": "&fq=credibility_label:(\"credible\" OR \"mostly credible\")"
+          },
+          "field": "main_elements",
+          "size": 15,
+          "alignment": "horizontal",
+          "fontScale": 10,
+          "ignoreStopWords": false,
+          "spyable": true,
+          "show_queries": false,
+          "title": "Main keywords represented in credible tweets",
+          "show_help_message": true,
+          "info_mode": "markdown",
+          "help_message": "Shows the *main words* identified in tweets which have also been identified as either **credible** or **mostly credible**.\nThis should give you an idea of *what are the (potentially) informing tweets about*."
+        },          
+        {
+          "span": 3,
+          "editable": false,
+          "draggable": false,
+          "type": "tagcloud",
+          "loadingEditor": false,
+          "queries": {
+            "mode": "all",
+            "ids": [
+              0
+            ],
             "query": "q=*&wt=json&rows=0&fq=publishedDate:[NOW-90DAY%20TO%20NOW%2B1DAY]&facet=true&facet.field=medical_conditions&facet.limit=10",
             "custom": "&fq=credibility_label:(\"not credible\" OR \"mostly not credible\")"
           },
           "field": "medical_conditions",
           "size": 10,
-          "alignment": "vertical and horizontal",
+          "alignment": "horizontal",
           "fontScale": 6,
           "ignoreStopWords": false,
           "spyable": true,
@@ -758,6 +800,43 @@
         },
         {
           "span": 3,
+          "editable": false,
+          "draggable": false,
+          "type": "tagcloud",
+          "loadingEditor": false,
+          "queries": {
+            "mode": "all",
+            "ids": [
+              0
+            ],
+            "query": "q=*&wt=json&rows=0&fq=publishedDate:[NOW-90DAY%20TO%20NOW%2B1DAY]&facet=true&facet.field=medical_conditions&facet.limit=10",
+            "custom": "&fq=credibility_label:(\"credible\" OR \"mostly credible\")"
+          },
+          "field": "medical_conditions",
+          "size": 10,
+          "alignment": "horizontal",
+          "fontScale": 6,
+          "ignoreStopWords": false,
+          "spyable": true,
+          "show_queries": false,
+          "title": "Medical conditions in credible tweets",
+          "show_help_message": true,
+          "info_mode": "markdown",
+          "help_message": "Shows the *medical conditions* mentioned in tweets which have also been identified as either **credible** or **mostly credible**.\nThis should give you an idea of *what medical conditions are associated with (potentially) informing tweets*."            
+        }          
+      ]
+    },
+{
+      "title": "Interactive graphs",
+      "height": "350px",
+      "editable": false,
+      "collapse": false,
+      "collapsable": true,
+      "info_mode": "markdown",
+      "help_message": "Shows graphs that let you explore correlations between **entities** mentioned in the tweets and the tweet credibility. This can be useful to explore trends in misinformation.",
+      "panels": [
+        {
+          "span": 6,
           "editable": false,
           "draggable": false,
           "type": "heatmap",
@@ -785,7 +864,7 @@
           "help_message": "Shows which **organization** are mentioned in articles which have various **credibility labels**.\n\nThe **organizations** have been found automatically via textual analysis.\n\nThe **credibility labels** have also been found automatically via credibility analysis.\n\nThe idea of the table is to be able to identify which organizations are associated with (mis)information.\n\nYou can click on the squares to add filters for the corresponding combination of organization and credibility. You can also click on the labels to sort the columns/rows in the table."
         },
         {
-          "span": 3,
+          "span": 6,
           "editable": false,
             "draggable": false,
             "searchable": false,
@@ -821,13 +900,15 @@
           "help_message": "Shows **medical conditions** linked to different **credibility labels**. Medical conditions are associated to credibilities if they are mentioned in a tweet that seems (not) credible.\n\nThe size of the circles corresponds to the number of tweets."
         }
       ]
-    },
+    },      
     {
       "title": "Examples of tweets",
       "height": "150px",
       "editable": false,
       "collapse": true,
       "collapsable": true,
+      "info_mode": "markdown",
+      "help_message": "Shows a table with example documents, by clicking on rows, you should be able to see the original tweet and an explanation for its credibility generated by our AI.",
       "panels": [
         {
           "span": 12,

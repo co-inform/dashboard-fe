@@ -3,14 +3,14 @@
     <form class="form-search" style="position:relative;margin-bottom:5px;" ng-submit="refresh()">
       <span class="begin-query">
         <i class="icon-circle pointer" data-unique="1" bs-popover="'app/panels/query/meta.html'" data-placement="right" ng-style="{color: querySrv.list[id].color}"></i>
-        <i class="icon-remove-sign pointer remove-query" ng-show="querySrv.ids.length > 1" ng-click="querySrv.remove(id);refresh()"></i>
+        <i class="icon-remove-sign pointer remove-query" bs-tooltip="'Remove this filter'"ng-show="querySrv.ids.length > 1" ng-click="querySrv.remove(id);refresh()"></i>
       </span>
       <input class="search-query panel-query" ng-class="{ 'input-block-level': unPinnedQueries.length==1, 'last-query': $last, 'has-remove': querySrv.ids.length > 1 }" bs-typeahead="panel.history" data-min-length=0 data-items=100 type="text" ng-model="querySrv.list[id].query" />
       <span class="end-query">
-        <i class="icon-search pointer" ng-click="refresh()" ng-show="$last"></i>
+        <i class="icon-search pointer" bs-tooltip="'apply this filter'" ng-click="refresh()" ng-show="$last"></i>
         <!-- Remove the plus icon to disable multiple queries function -->
-        <i class="icon-plus pointer" ng-click="querySrv.set({})" ng-show="$last"></i>
-        <i class="icon-eraser pointer" ng-click="reset()" ng-show="$last"></i>
+        <i class="icon-plus pointer" bs-tooltip="'Add another keyword filter'" ng-click="querySrv.set({})" ng-show="$last"></i>
+        <i class="icon-eraser pointer" bs-tooltip="'Remove this filter'" ng-click="reset()" ng-show="$last"></i>
       </span>
     </form>
   </div>

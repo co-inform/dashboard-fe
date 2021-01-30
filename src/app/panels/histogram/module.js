@@ -597,7 +597,8 @@ function (angular, app, $, _, kbn, moment, timeSeries) {
               grid: {
                 backgroundColor: null,
                 borderWidth: 0,
-                hoverable: true,
+                  hoverable: true,
+                  clickable: true,
                 color: '#c8c8c8'
               }
             };
@@ -758,13 +759,37 @@ function (angular, app, $, _, kbn, moment, timeSeries) {
           }
         });
 
+        elem.bind("plotclick", function (event, pos, item) {
+            console.log('plotclick event', event, pos, item);
+            if (item) {
+                // TODO: how to only do this when not the mouseup of a plotselected event?
+                let timestamp = item.datapoint[0];
+                let expectingHits = item.datapoint[1];
+                let momentUtc =  moment.utc(timestamp);
+                let intervalMs = item.series.time_series.interval.ms;
+                let from = moment.utc(timestamp - intervalMs/2).toDate();
+                let to = moment.utc(timestamp + intervalMs/2).toDate();
+                console.log('TODO: set time filter to ', momentUtc.toDate(), from, to);
+            }
+            // filterSrv.set({
+            //     type : 'time',
+            //     from: ,
+            //     to: ,
+            //     field: filterSrv.getTimeField()
+            // });
+            // dashboard.refresh();
+          });
+
         elem.bind("plotselected", function (event, ranges) {
+            let from = moment.utc(ranges.xaxis.from).toDate();
+            let to = moment.utc(ranges.xaxis.to).toDate(); 
+            console.log('plotselected event', event, ranges, from, to);
           filterSrv.set({
             type  : 'time',
             // from  : moment.utc(ranges.xaxis.from),
             // to    : moment.utc(ranges.xaxis.to),
-            from  : moment.utc(ranges.xaxis.from).toDate(),
-            to    : moment.utc(ranges.xaxis.to).toDate(),
+            from  : from,
+            to    : to,
             field : filterSrv.getTimeField()
           });
           dashboard.refresh();

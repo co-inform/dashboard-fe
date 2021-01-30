@@ -100,7 +100,8 @@ function (angular, $, _, appLevelRequire) {
                 // -- the "return" param.
                 // Do this as a relative path change since we don't know what
                 // the base/root path will be, we do know banana will always be
-                // served by the proxy at $root/banana/ - login is 1 level up.
+                  // served by the proxy at $root/banana/ - login is 1 level up.
+                console.log('Error ', err);  
                 var query = window.location.search,
                     hash = window.location.hash,
                     goto = '../login?return=' + window.location.pathname;
