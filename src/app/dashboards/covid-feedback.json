@@ -1,6 +1,6 @@
 ﻿{
     "title": "COVID-19 (dis)information Dashboard",
-    "version": "v20201125",
+    "version": "v20210125",
     "info_mode": "markdown",
     "help_message": "### Dashboard Tutorial\n\nA Co-inform dashboard shows a collection of **documents** (mainly tweets) that have been collected from various **sources** (e.g. a hashtag, usernames, keywords, websites).\n\nWhile there are many similar dashboards on-line, this one is special as it includes estimations by an artificial intelligence about the **credibility** of such documents. You can use this dashboard to *get an idea of the prevalence of misinformation* in the collection of documents.\n\nIn general, feel free to click and explore .\n\nFollow this tutorial to get acquainted the dashboard. You can always (re)start this tutorial by clicking on the *tutorial* button on the top right.",
   "services": {

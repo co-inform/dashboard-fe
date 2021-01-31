@@ -1,6 +1,6 @@
 ﻿{
-    "title": "Greece (dis)infomration Dashboard",
-    "version": "v20210128",
+    "title": "Sweden (dis)information Dashboard",
+    "version": "v20210129",
     "info_mode": "markdown",
     "help_message": "### Dashboard Tutorial\n\nA Co-inform dashboard shows a collection of **documents** (mainly tweets) that have been collected from various **sources** (e.g. a hashtag, usernames, keywords, websites).\n\nWhile there are many similar dashboards on-line, this one is special as it includes estimations by an artificial intelligence about the **credibility** of such documents. You can use this dashboard to *get an idea of the prevalence of misinformation* in the collection of documents.\n\nIn general, feel free to click and explore .\n\nFollow this tutorial to get acquainted the dashboard. You can always (re)start this tutorial by clicking on the *tutorial* button on the top right.",
   "services": {
@@ -174,7 +174,7 @@
           "mode": "markdown",
           "content": "This dashboard shows an overview of tweets selected from sources relevant for Swedish news at the beginning of 2021, such as important media channels and political celebrities. \n\nThis dashboard allows you to (i) select a subset of tweets, (ii) get an overview of how many of these are potentially misinforming (based on their low **credibility**), (iii) **explore the trends over time** of credible vs not credible tweets, (iv) **explore correlations** and more.\n\nClick on the information buttons ![image](img/information-icon.png) on the various graphs for further information. Also, you can follow the **tutorial** by pressing the button at the top right.\n### Main document sources \n\n* **[Twitter](https://twitter.com)**:\n  * *se-keywords*: tweets matching *Anders Tegnell*, *Vaccin*, *Folkhälsomyndigheten*, *Covid*, *Big Tech*, *Covid-19*, *Black Lives Matter*, *Biden*, *Trump*, *Lofven*, *Greta Thunberg* or *SD*\n  * *Hashtags pilot-se*: tweets matching `#blacklivesmatter`, `#Brexit`, `#covidsverige`, `#svpol`, `#coronasverige`, `#Löfven`, `#svmed`, `#eupol`, `#trump`, `#klimat`, `#covid19sverige`, `#FHM`, `#ElectionResults2020`, `#covidvaccin`, `#svtagenda`, `#COVID19SWEDEN`, `#bytStrategiNu` or `#tegnell`\n  * *From pilot-se twitter accounts*: tweets from accounts `@Folkhalsomynd`, `@sdriks`, `@moderaterna`, `@BBCWorld`, `@dagensnyheter`, `@SwedishPM`, `@sverigesradio`, `@svtnyheter`, `@socialdemokrat`, `@miljopartiet`, `@Aftonbladet`, `@SvD`, `@CNN` or `@Expressen`\n  * *From pilot-se twitter accounts 2*: more tweets from accounts `@DNDebatt`, `@jsjostedt`, `@BuschEbba`, `@amandalind_`, `@TheLocalSweden`, `@SvDDebatt`, `@GretaThunberg`, `@hanifbali`, `@liberalerna`, `@Feministerna`, `@kdriks`, `@Centerpartiet`, `@vansterpartiet`, `@tidningenresume`, `@annieloof`\n* Websites:\n  * *Pilot-swedish Svt news*: news and opinion articles from [SVT Nyheter's website](htps://www.svt.se/)",
           "style": {},
-          "title": "Dashboard localised for the Co-inform pilot in Greece",
+          "title": "Dashboard localised for the Co-inform pilot in Sweden",
           "show_help_message": true,
           "info_mode": "markdown",
           "help_message": "Provides a short description about the dashboard, its goals and the sources used to populate the collection of tweets."
@@ -1142,7 +1142,7 @@
   },
   "solr": {
     "server": "https://dashboard.coinform.eu/api/dboard/",
-    "core_name": "pilot-gr",
+    "core_name": "pilot-se",
     "core_list": [
       "claims",
       "corona-claims",
