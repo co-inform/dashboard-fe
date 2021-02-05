@@ -85,6 +85,7 @@ a:focus,a:hover{color:#59988e;text-decoration:underline}
 .offset3{margin-left:260px}
 .offset2{margin-left:180px}
 .offset1{margin-left:100px}
+.row-container {padding-left:10px;width:99%!important}
 .row-fluid [class*=span]{display:block;width:100%;min-height:30px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;float:left;margin-left:2.12765957%}
 .row-fluid [class*=span]:first-child{margin-left:0}
 .row-fluid .controls-row [class*=span]+[class*=span]{margin-left:2.12765957%}
@@ -1016,6 +1017,8 @@ div.flot-text{color:#333!important}
 .main{
   transition: 0.5s;
   margin-top: 15px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 .openbtn {
   color: white;
@@ -1023,6 +1026,7 @@ div.flot-text{color:#333!important}
   transition: 0.5s;
   border: 0 0 0 0;
   font-size: x-large;
+  line-height: 30px;
   position:fixed;
   z-index: 1;
 }
