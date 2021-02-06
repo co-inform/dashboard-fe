@@ -49,11 +49,9 @@ function (angular, app, _, require) {
         function add_blank_targets(element)  {
             if (!element) return;
             let links = Array.from(element.getElementsByTagName("a"));
-            console.log('element has links:', links);
             if (!links) return;
             if (links.length == 0) return;
             let extLinks = links.filter(link => link.hostname != window.location.hostname);
-            console.log('external links:', extLinks);
             if (extLinks.length == 0) return;
             extLinks.forEach(link => link.target = '_blank');
         };
@@ -67,7 +65,6 @@ function (angular, app, _, require) {
               .replace(/</g, '&lt;');
             var htmlText = converter.makeHtml(text);
             element.html(htmlText);
-            console.log('Text element with rendered html is:', element);
             // For whatever reason, this fixes chrome. I don't like it, I think
             // it makes things slow?
             if(!scope.$$phase) {
