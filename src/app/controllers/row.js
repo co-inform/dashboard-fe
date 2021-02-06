@@ -84,7 +84,7 @@ function (angular, app, _) {
         };
         introService.clear();
         let handleIntroBeforeChange = function(targetElt) {
-            console.log('On Before Change to', targetElt);
+            //console.log('On Before Change to', targetElt);
             if (targetElt.id == 'mySidebar') openNav();
         };
         let introOptions = dboardToIntroOptions();
@@ -96,12 +96,12 @@ function (angular, app, _) {
         introService.onBeforeChange(handleIntroBeforeChange);
 
         if ($scope.row.showFirstTime) {
-            console.log('Loading row for dboard', dashboard);
+            //console.log('Loading row for dboard', dashboard);
             let myStorage = window.localStorage;
             let dboardSeenKey = 'dashboard-' + dashboard.current.hashCode + '-seen';
-            console.log('retrieving localStorage value for', dboardSeenKey);
+            //console.log('retrieving localStorage value for', dboardSeenKey);
             let dboardSeen = myStorage.getItem(dboardSeenKey);
-            console.log('dboardSeen value', dboardSeen);
+            console.debug('dboardSeen value', dboardSeen);
             if (!dboardSeen) {
                 // the user has not seen this row yet, so make sure it's not collapsed
                 $scope.row.collapse = false;
@@ -122,9 +122,6 @@ function (angular, app, _) {
                 return;
             }
             row.collapse = row.collapse ? false : true;
-            console.log("scope", $scope);
-            console.log("rootScope", $rootScope);
-            console.log("dashboard", dashboard);
             row.showHeader = dashboard.current.coinform_experimental || row.collapse; // by default, show header when row is collapsed
             if (!row.collapse) {
                 $timeout(function () {

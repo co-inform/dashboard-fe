@@ -99,51 +99,52 @@
             titles="'+dashboard.current.sideColumn.title+'"
             ng-show="dashboard.current.sideColumn.panels.length > 0">☰ </button>  
     <div id="main" class="container-fluid main">
-      <div class="row-fluid">
+      <div class="row-fluid row-container">
         <div ng-view></div>
       </div>
-    </div>
-
-    <div class="main-footer">
-      <div class="main-footer-inner"'>
-        Built for Co-inform by Expert System Iberia <span style="font-weight: normal; vertical-align: middle; font-size: 14px;"><em>Copyright 2019<br></em><a href="https://coinform.eu/disclaimer/"><span style="color: #eaeaea;">Disclaimer</span></a></span>
+      <div class="main-footer">
+        <div class="main-footer-inner"'>
+          Built for Co-inform by Expert System Iberia <span style="font-weight: normal; vertical-align: middle; font-size: 14px;"><em>Copyright 2019<br></em><a href="https://coinform.eu/disclaimer/"><span style="color: #eaeaea;">Disclaimer</span></a></span>
+        </div>
+        <div class="social-media">
+				  <ul class="" style="float:right;margin:0 0 22px;" data-animation-style="slide" data-animation-repeat="" data-animation-duration="1000ms" data-animation-delay="0ms" data-animation-intensity="50%" data-animation-starting-opacity="0%" data-animation-speed-curve="ease-in-out">
+				    <li class="social-media-follow">
+              <a href="https://www.facebook.com/Coinform" class="icon-facebook" title="Follow on Facebook" target="_blank">
+                <span class="" style="display: none" aria-hidden="true">Follow</span></a></li>
+            <li class="social-media-follow">
+              <a href="https://twitter.com/Co_Inform" class="icon-twitter" title="Follow on Twitter" target="_blank">
+                <span class="" style="display: none" aria-hidden="true">Follow</span></a></li>
+            <li class="social-media-follow">
+              <a href="https://www.linkedin.com/company/coinform/" class="icon-linkedin" title="Follow on LinkedIn" target="_blank">
+                <span class="" style="display: none" aria-hidden="true">Follow</span></a></li>
+			    </ul> <!-- .et_pb_counters -->
+			  </div>
       </div>
-      <div class="social-media">
-				<ul class="" style="float:right;margin:0 0 22px;" data-animation-style="slide" data-animation-repeat="" data-animation-duration="1000ms" data-animation-delay="0ms" data-animation-intensity="50%" data-animation-starting-opacity="0%" data-animation-speed-curve="ease-in-out">
-				  <li class="social-media-follow">
-            <a href="https://www.facebook.com/Coinform" class="icon-facebook" title="Follow on Facebook" target="_blank">
-              <span class="" style="display: none" aria-hidden="true">Follow</span></a></li>
-          <li class="social-media-follow">
-            <a href="https://twitter.com/Co_Inform" class="icon-twitter" title="Follow on Twitter" target="_blank">
-              <span class="" style="display: none" aria-hidden="true">Follow</span></a></li>
-          <li class="social-media-follow">
-            <a href="https://www.linkedin.com/company/coinform/" class="icon-linkedin" title="Follow on LinkedIn" target="_blank">
-              <span class="" style="display: none" aria-hidden="true">Follow</span></a></li>
-			  </ul> <!-- .et_pb_counters -->
-			</div>
-    </div>
 
-    <div class="main-footer-funding">
-      <div class="funding-divider"></div>
-      <div class="funding-inner">
-        <div class="ec-logos">
-				  <div class="" style="" data-animation-style="slide" data-animation-repeat="" data-animation-duration="1000ms" data-animation-delay="0ms" data-animation-intensity="50%" data-animation-starting-opacity="0%" data-animation-speed-curve="ease-in-out">
-				    <span class="image_wrap "><img src="https://coinform.eu/wp-content/uploads/2018/06/EC-H2020.png"></span>
+      <div class="main-footer-funding">
+        <div class="funding-divider"></div>
+        <div class="funding-inner">
+          <div class="ec-logos">
+				    <div class="" style="" data-animation-style="slide" data-animation-repeat="" data-animation-duration="1000ms" data-animation-delay="0ms" data-animation-intensity="50%" data-animation-starting-opacity="0%" data-animation-speed-curve="ease-in-out">
+				      <span class="image_wrap "><img src="https://coinform.eu/wp-content/uploads/2018/06/EC-H2020.png"></span>
+			      </div>
 			    </div>
-			  </div>
-        <div class="funding-text">
-				  <div class="" style="" data-animation-style="slide" data-animation-repeat="" data-animation-duration="1000ms" data-animation-delay="0ms" data-animation-intensity="50%" data-animation-starting-opacity="0%" data-animation-speed-curve="ease-in-out">
-				    <div class=""><p>Co-inform project is co-funded by Horizon 2020  the Framework Programme for Research and Innovation (2014-2020)<br>H2020-SC6-CO-CREATION-2016-2017 (CO-CREATION FOR GROWTH AND INCLUSION)<br>Type of action: RIA (Research and Innovation action)<br>Proposal number: 770302</p></div>
-			    </div> 
-			  </div>
+          <div class="funding-text">
+				    <div class="" style="" data-animation-style="slide" data-animation-repeat="" data-animation-duration="1000ms" data-animation-delay="0ms" data-animation-intensity="50%" data-animation-starting-opacity="0%" data-animation-speed-curve="ease-in-out">
+				      <div class=""><p>Co-inform project is co-funded by Horizon 2020  the Framework Programme for Research and Innovation (2014-2020)<br>H2020-SC6-CO-CREATION-2016-2017 (CO-CREATION FOR GROWTH AND INCLUSION)<br>Type of action: RIA (Research and Innovation action)<br>Proposal number: 770302</p></div>
+			      </div> 
+			    </div>
+        </div>
+        <div ></div>
       </div>
-      <div ></div>
     </div>
+
+    
     
     <script>
      function openNav() {
-         document.getElementById("mySidebar").style.width = "250px";
-         document.getElementById("main").style.marginLeft = "250px";
+         document.getElementById("mySidebar").style.width = "260px";
+         document.getElementById("main").style.marginLeft = "260px";
      }
 
      function closeNav() {

@@ -85,6 +85,7 @@ a:focus,a:hover{color:#59988e;text-decoration:underline}
 .offset3{margin-left:260px}
 .offset2{margin-left:180px}
 .offset1{margin-left:100px}
+.row-container {padding-left:10px;width:99%!important}
 .row-fluid [class*=span]{display:block;width:100%;min-height:30px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;float:left;margin-left:2.12765957%}
 .row-fluid [class*=span]:first-child{margin-left:0}
 .row-fluid .controls-row [class*=span]+[class*=span]{margin-left:2.12765957%}
@@ -809,7 +810,7 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner{padding:0;
 .modal-footer .btn+.btn{margin-left:5px;margin-bottom:0}
 .modal-footer .btn-group .btn+.btn{margin-left:-1px}
 .modal-footer .btn-block+.btn-block{margin-left:0}
-.tooltip{z-index:1030;display:block;visibility:visible;font-size:11px;line-height:1.4;opacity:0;filter:alpha(opacity=0)}
+.tooltip{z-index:1030;display:block;visibility:visible;font-size:11px;line-height:1.4;opacity:0;filter:alpha(opacity= 0)}
 .popover,.popover-title:empty{display:none}
 .tooltip h1,h2,h3{line-height:20px}
 .tooltip h1{font-size:21.5px}
@@ -818,12 +819,12 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner{padding:0;
 .tooltip h2 small,h4{font-size:14.5px}
 .tooltip h3 small,h4 small,h5{font-size:12px}
 .tooltip h6{font-size:10.9px}
-.tooltip.in{opacity:.8;filter:alpha(opacity=80)}
+.tooltip.in{opacity:.9;filter:alpha(opacity=90)}
 .tooltip.top{margin-top:-3px;padding:5px 0}
 .tooltip.right{margin-left:3px;padding:0 5px}
 .tooltip.bottom{margin-top:3px;padding:5px 0}
 .tooltip.left{margin-left:-3px;padding:0 5px}
-.tooltip-inner{max-width:250px;padding:8px;color:#fff;text-align:center;text-decoration:none;background-color:#693C5E;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px}
+.tooltip-inner{max-width:250px;padding:8px;color:#fff;text-align:center;text-decoration:none;background-color:#693C5E;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;boder-width:1px;border-style:solid;border-color:#fff}
 .tooltip-arrow{width:0;height:0;border-color:transparent;border-style:solid}
 .tooltip.top .tooltip-arrow{bottom:0;left:50%;margin-left:-5px;border-width:5px 5px 0;border-top-color:#000}
 .tooltip.right .tooltip-arrow{top:50%;left:0;margin-top:-5px;border-width:5px 5px 5px 0;border-right-color:#000}
@@ -1016,6 +1017,8 @@ div.flot-text{color:#333!important}
 .main{
   transition: 0.5s;
   margin-top: 15px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 .openbtn {
   color: white;
@@ -1023,6 +1026,7 @@ div.flot-text{color:#333!important}
   transition: 0.5s;
   border: 0 0 0 0;
   font-size: x-large;
+  line-height: 30px;
   position:fixed;
   z-index: 1;
 }
@@ -1717,5 +1721,42 @@ div.flot-text{color:#333!important}
   color: #697882;
 }
 
+.activeFilters {
+  margin-bottom: 8px;
+  border-bottom-style: dotted;
+  border-botom-width: 1px;
+}
+.removeAllActiveFilters {
+  background-color: #697882;
+  border-radius: 25% 10%;
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
+  text-size-adjust: 120%;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.activeFiltersHeader {
+  margin-bottom: 5px;
+}
+
+.activeFilter {
+  background-color: #697882;
+  border-radius: 25% 10%;
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
+  width: 95%;
+  margin-left: 5px;
+  margin-bottom: 4px;
+}
 
 
+.activeFilterLabel {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 95%;
+  overflow: hidden;
+  padding-left: 3px;
+}

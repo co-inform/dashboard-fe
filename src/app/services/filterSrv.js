@@ -55,6 +55,12 @@ define([
      */
     function isDuplicate(filter) {
       var foundDup = _.find(self.list, function(f) {
+          var msg = 'Mismatch: ';
+          msg += (f.editing === filter.editing) ? '-' : 'editing';
+          msg += (f.type === filter.type) ? '-' : 'type';
+          msg += (f.query === filter.query) ? '-' : 'query';
+          msg += (f.field === filter.field) ? '-' : 'field';
+          msg += (f.value === filter.value) ? '-' : 'value';
         if (f.editing === filter.editing &&
             f.type === filter.type &&
             f.query === filter.query &&
@@ -62,9 +68,12 @@ define([
             f.value === filter.value) {
           // This filter is a duplicate.
           return true;
+        } else {
+          console.trace('not a match for', f, msg);  
+          return false;
         }
       });
-
+      if (!foundDup) console.debug('Found new filter', filter);  
       return !!foundDup; // Return boolean value of foundDup
     }
 
@@ -74,6 +83,13 @@ define([
       // Check for duplicate filter, if it is already exist, do nothing (don't add it to the Filter panel).
       // If the filter type is 'time', then we allow duplicate so that Histogram panel will behave correctly
       // (by adding a new time filter to the Filter panel, every time when a user selects an area in the histogram).
+      // Need to url encode the filter query or value
+      if (filter.query) {
+        filter.query = encodeURIComponent(filter.query);
+      } else if (filter.value) {
+        filter.value = encodeURIComponent(filter.value);
+      }
+        
       if (filter.type !== 'time' && isDuplicate(filter)) {
         return false;
       }
@@ -81,12 +97,6 @@ define([
       _.defaults(filter,{mandate:'must'});
       filter.active = true;
 
-      // Need to url encode the filter query or value
-      if (filter.query) {
-        filter.query = encodeURIComponent(filter.query);
-      } else if (filter.value) {
-        filter.value = encodeURIComponent(filter.value);
-      }
 
       if(!_.isUndefined(id)) {
         if(!_.isUndefined(self.list[id])) {
@@ -355,7 +365,8 @@ define([
     // get the ids of filters using type and field
     this.idsByTypeAndField = function(type,field,inactive){
       var _require = inactive ? {type:type} : {type:type, field:field, active:true};
-      return _.pluck(_.where(self.list,_require),'id');
+        let result = _.pluck(_.where(self.list,_require),'id');
+        return result;
     };
 
     // this method used to get the range filter with specific field

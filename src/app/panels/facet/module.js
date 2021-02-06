@@ -68,6 +68,8 @@ define([
       _.defaults($scope.panel, _d);
 
       $scope.init = function() {
+        $scope.filterSrv = filterSrv;
+            
         $scope.Math = Math;
         // Solr
         $scope.sjs = $scope.sjs || sjsResource(dashboard.current.solr.server + dashboard.current.solr.core_name); // jshint ignore:line
@@ -277,6 +279,11 @@ define([
         dashboard.refresh();
       };
 
+      $scope.numTermFilters = function() {
+          let ids = filterSrv.idsByType('terms');
+          return ids.length;
+      };
+        
       // return the length of the filters with specific field
       // that will be used to detect if the filter is present or not to show close icon beside the facet
       $scope.filter_close = function(field) {
@@ -294,12 +301,49 @@ define([
         dashboard.refresh();
       };
 
+      $scope.removeFilterId = function(id)   {
+          let result = filterSrv.remove(id);
+          dashboard.refresh();
+         return result;
+      };
+        
         $scope.delete_all_terms_filters = function() {
             filterSrv.removeByType('terms');
             $scope.panel.numFilters = 0;
             dashboard.refresh();
         }  
 
+        
+      $scope.decodeFilterValue = function(value) {
+        if (value instanceof Date) {
+          return value.toLocaleDateString() + ' ' + value.toTimeString().substring(0,17); // e.g. 4/7/2017 11:45:34 GMT+0700
+        } else {
+          return decodeURIComponent(value);
+        }
+      };
+
+      $scope.renderFilterValue = function(filter) {
+          console.log('Filter', filter);
+          let value = filter.value;
+          let decVal = $scope.decodeFilterValue(value);
+          if (filter.field == "categories") {
+              let elts = decVal.split('/');
+              return elts[elts.length - 1];
+          } else {
+              return decVal;
+          }
+      };
+
+      $scope.renderFilterTooltip = function(filter) {
+          //console.log('Filter', filter);
+          let field = filter.field;
+          let value = $scope.renderFilterValue(filter);
+          var md = '*' + field + '* must be:\n\n `' + value + '`';
+
+          var converter = new Showdown.converter();
+          return converter.makeHtml(md);
+      };
+        
       // TODO Refactor this jquery code
       // jquery code used to toggle the arrow from up to down when facet is opened
       // also it is used to highlight the header field in faceting
@@ -316,4 +360,14 @@ define([
         $(n.target).siblings('.accordion-heading').toggleClass('bold');// jshint ignore:line
       });
     });
+      
+    module.filter('truncate', function() {
+      return function(text, length) {
+        length = length || 200;
+        if (!_.isUndefined(text) && !_.isNull(text) && text.toString().length > 0) {
+          return text.length > length ? text.substr(0,length)+'...' : text;
+        }
+        return '';
+      };
+    });      
   });

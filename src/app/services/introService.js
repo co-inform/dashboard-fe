@@ -73,19 +73,19 @@ function(angular, introJs) {
 
 		    this.start = function(step) {
 			      if (typeof (step) === 'number') {
-                console.log('Starting from ', step);
+                //console.log('Starting from ', step);
 				        intro.start().goToStep(step);
 			      } else {
-                console.log('Start intro.js', intro);
+                //console.log('Start intro.js', intro);
 				        intro.start();
-                console.log('Return intro.js start');
+                //console.log('Return intro.js start');
 			      }
-            console.debug('Notifying open');
+            //console.debug('Notifying open');
 	          self.notifyListeners('open');
 		    };
         
 		    this.notifyListeners = function(newSts){
-            console.debug('Notifying ', newSts, notifyList);
+            //console.debug('Notifying ', newSts, notifyList);
 			      for(var key in notifyList){
 				        if(notifyList.hasOwnProperty(key)){
 					          if(angular.isFunction(notifyList[key]))
