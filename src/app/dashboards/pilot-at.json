@@ -866,7 +866,7 @@
             "title": "Organizations in relation to the credibility of tweets",
           "show_help_message": true,
           "info_mode": "markdown",
-          "help_message": "Shows which **organization** are mentioned in articles which have various **credibility labels**.\n\nThe **organizations** have been found automatically via textual analysis.\n\nThe **credibility labels** have also been found automatically via credibility analysis.\n\nThe idea of the table is to be able to identify which organizations are associated with (mis)information.\n\nYou can click on the squares to add filters for the corresponding combination of organization and credibility. You can also click on the labels to sort the columns/rows in the table."
+          "help_message": "Shows which **organization** are mentioned in articles which have various **credibility labels**.\n\nThe **organizations** have been found automatically via textual analysis.\n\nThe **credibility labels** have also been found automatically via credibility analysis.\n\nThe idea of the table is to be able to identify which organizations are mentioned along with (mis)information.\n\nYou can click on the squares to add filters for the corresponding combination of organization and credibility. You can also click on the labels to sort the columns/rows in the table."
         },
         {
           "span": 6,
