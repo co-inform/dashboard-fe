@@ -323,7 +323,7 @@ define([
       };
 
       $scope.renderFilterValue = function(filter) {
-          console.log('Filter', filter);
+          //console.log('Filter', filter);
           let value = filter.value;
           let decVal = $scope.decodeFilterValue(value);
           if (filter.field == "categories") {
