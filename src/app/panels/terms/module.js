@@ -567,7 +567,7 @@ function (angular, app, _, $, kbn) {
 
             // Escape HTML tags to prevent the XSS or script injection attack
             var escapedValue = dashboard.escapeHtml(
-              item.series.label + " (" + dashboard.numberWithCommas(value.toFixed(scope.panel.decimal_points)) + ")"
+              item.series.label + " (" + dashboard.numberWithCommas(value.toFixed(scope.panel.decimal_points)) + ") " + Math.round(item.series.percent) + "%"
             );
 
             $tooltip
