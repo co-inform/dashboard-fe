@@ -911,7 +911,7 @@
             ],
             "query": "q=*&fq=publishedDate:[NOW-90DAY%20TO%20NOW%2B1DAY]&wt=json&rows=50",
             "basic_query": "q=*&fq=publishedDate:[NOW-90DAY%20TO%20NOW%2B1DAY]",
-            "custom": "&hl=false&fq=credibility_label:*&fq=credibility_confidence:[0.89 TO *]"
+            "custom": "&hl=false&fq=credibility_label:(* NOT \"credibility uncertain\")&fq=credibility_confidence:[0.89 TO *]"
           },
           "size": 10,
           "pages": 5,
