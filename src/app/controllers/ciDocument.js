@@ -11,7 +11,7 @@ function (angular, app, _, moment) {
 
     module.controller('CiDocumentCtrl', function ($scope, $rootScope, $timeout, ejsResource, sjsResource,
                                                   dashboard,
-                                                  alertSrv, querySrv) {
+                                                  alertSrv, querySrv, solrSrv) {
         var _d = {
             title: "",
             type: "Article"
@@ -22,6 +22,19 @@ function (angular, app, _, moment) {
             $scope.ciDoc = ciDoc;
             console.log('Initialising ciDocumentCtr with ciDoc', ciDoc)
             _.defaults($scope.ciDoc, _d)
+            let fcRevsPromise = solrSrv.fetchFactCheckerReview(ciDoc);
+            $scope.factCheckReviews = [];
+            $scope.factCheckReview = null;
+            fcRevsPromise.then(function(revs) {
+                console.log('Initialising factCheckReviews with', revs);
+                $scope.factCheckReviews = revs;
+                if (revs.length > 0) {
+                    $scope.factCheckReview = revs[0];
+                }
+            }, function(errMsg) {
+                alertSrv.set('Warning', errMsg)
+                $scope.factCheckReviews = [];
+            });
         };
 
         $scope.isTweet = function() {
@@ -34,6 +47,10 @@ function (angular, app, _, moment) {
             return !$scope.isTweet();
         }
 
+        $scope.showFactCheckReview = function() {
+            return $scope.factCheckReview;
+        }
+
         $scope.pubDate = function() {
             var date = $scope.ciDoc.publishedDate;
             return moment.utc(date).format('LT') + ' - ' + moment.utc(date).format('ll');
@@ -41,6 +58,11 @@ function (angular, app, _, moment) {
 
         $scope.credReviewDate = function() {
             var date = $scope.ciDoc.credibility_score_date;
+            return moment.utc(date).format('LT') + ' - ' + moment.utc(date).format('ll');
+        }
+
+        $scope.factCheckReviewDate = function() {
+            let date = $scope.factCheckReview.dateCreated;
             return moment.utc(date).format('LT') + ' - ' + moment.utc(date).format('ll');
         }
 
@@ -67,7 +89,7 @@ function (angular, app, _, moment) {
         $scope.reviewConfidence = function() {
             return ($scope.ciDoc.credibility_confidence || 0.0).toFixed(2);
         }
-        
+
         $scope.explanation = function() {
             function findNextDelimiterIndex(text, from) {
                 // console.debug("Finding next code delimiter in text", text.length,
@@ -172,6 +194,24 @@ function (angular, app, _, moment) {
         $scope.reviewIsInaccurateStat = function() {
             // TODO: add field to DB and return as part of doc when requested
             return dashboard.numberWithCommas(0);
+        }
+
+        $scope.factCheckIsAccurateStat = function() {
+            // TODO
+            return dashboard.numberWithCommas(0);
+        }
+
+        $scope.factCheckIsInaccurateStat = function() {
+            // TODO
+            return dashboard.numberWithCommas(0);
+        }
+
+        $scope.rateFactCheckAsAccurate = function() {
+            alertSrv.set('Not implemented yet', 'This feature is not implemented yet', 'error');
+        }
+
+        $scope.rateFactCheckAsInaccurate = function() {
+            alertSrv.set('Not implemented yet', 'This feature is not implemented yet', 'error');
         }
         
         //$scope.init(null);
