@@ -7,7 +7,7 @@ function (angular, _) {
 
   var module = angular.module('kibana.services');
 
-  module.service('solrSrv', function(dashboard, $http, alertSrv, filterSrv, querySrv) {
+  module.service('solrSrv', function($q, dashboard, $http, alertSrv, filterSrv, querySrv) {
     // Save a reference to this
     var self = this;
 
@@ -63,11 +63,52 @@ function (angular, _) {
         // });
     };
 
+
+    this.fetchFactCheckerReview = function(doc) {
+        let deferred = $q.defer();
+
+        let baseUrl = dashboard.current.solr.server
+        let collection = dashboard.current.solr.core_name;
+        if (!(doc.url && (doc.url.startsWith('https://twitter.com/') || doc.url.startsWith('http://twitter.com/')))) {
+            console.log('Not a tweet?', doc);
+            deferred.resolve([]);
+            return deferred.promise;
+        }
+        let doc_id = doc['id'];
+        var request = $http({
+            method: 'GET',
+            url: baseUrl + "/tweet/accuracy-review?tweet_id=" + doc_id
+        }).error(function(data, status) {
+            if(status === 0) {
+                alertSrv.set('Error', 'Could not retrieve accuracy reviews '+baseUrl+
+                             '. Please ensure that the server is reachable from your system.' ,'error');
+            } else {
+                let msg = 'Could not retrieve accuracy reviews from server (Error status = '+status+')'
+                alertSrv.set('Error', msg, 'error');
+                deferred.reject(msg);
+            }     
+        }).success(function(data, status) {
+            let result = data['response'];
+            console.log('Got response back from server for doc_id: ', doc_id, result);
+            let revs = result['factchecker_reviews'];
+            if (revs == null) {
+                let msg = 'No factchecker reviews available for this document. Sorry.';
+                alertSrv.set('Warning', msg);
+                console.log('Resolved with null?');
+                deferred.resolve([]);
+            } else {
+                console.log('Retrieved ', revs.length,' factchecker reviews');
+                deferred.resolve(revs);
+            }
+        });
+        return deferred.promise;
+    };
+      
     // Send user review to Solr
     this.postReview = function(review) {
         jQuery.ajax({
         type: "POST",
-        data: JSON.stringify(review),
+        data: JSON.stringify(review), 
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         url: dashboard.current.solr.server + "user/accuracy-review",

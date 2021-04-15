@@ -89,7 +89,7 @@
                 View:
                 <a class="link" ng-class="{'strong':event.kibana.view == 'custom'}" ng-click="event.kibana.view = 'custom'">Doc+Review</a> /
                 <a class="link" ng-class="{'strong':event.kibana.view == 'table'}" ng-click="event.kibana.view = 'table'">Table</a> /
-                <a class="link" ng-class="{'strong':event.kibana.view == 'graph'}" ng-click="event.kibana.view = 'graph'">reviewGraph</a>
+                <a class="link" ng-hide="dashboard.current.prod_mode" ng-class="{'strong':event.kibana.view == 'graph'}" ng-click="event.kibana.view = 'graph'">reviewGraph</a>
                 <!--
                 <a class="link" ng-class="{'strong':event.kibana.view == 'json'}" ng-click="event.kibana.view = 'json'">JSON</a> /
                 <a class="link" ng-class="{'strong':event.kibana.view == 'raw'}" ng-click="event.kibana.view = 'raw'">Raw</a>

@@ -70,8 +70,9 @@
       </div>
     </div>
   </blockquote>
- </div>
- <div class="CredibilityReview">
+  </div>
+  
+ <div class="CredibilityReview" ng-hide="factCheckReview">
    <div class="credReview-header">
      <p><img class="Avatar-square" title="{{ciDoc.credibility_assessor}}" src="img/bot_symbol.svg"></img></p>
      <div class="RatingRater">
@@ -111,5 +112,45 @@
      </div>
    </div>
  </div>
-  
+
+ <div class="CredibilityReview" ng-show="factCheckReview">
+   <div class="credReview-header">
+     <p><img class="Avatar-square" title="{{factCheckReview.author.name}}" src="img/revCred_symbol.svg"></img></p>
+     <div class="RatingRater">
+       <div class="reviewLabelContainer">
+         <span class="reviewLabel">
+           <span class="reviewLabel" title="Accuracy assigned by factchecker">{{factCheckReview.name}}</span>
+         </span>
+         <span class="reviewer">{{factCheckReview.author.name}}</span>
+       </div>
+     </div>
+     <div class="review-brand">
+       <a class="icon-info" title="This review was performed by a reputable fact-checker in collaboration with Co-inform."></a>
+     </div>
+   </div>
+   <div class="review-body">
+     <div class="CredibilityReview-Explanation">
+       {{factCheckReview.text}}
+     </div>
+     <div class="reviewInfo">
+       <div class="reviewInfo-actions">
+         <span class="rate" title="This review is accurate (help us detect inconsistencies)"
+               ng-click="rateFactCheckAsAccurate()">
+           <a class="icon-ok"></a>
+           <span class="accurate-stat" title="Number of Co-inform users who agreed with this review">{{factCheckIsAccurateStat()}}</span>
+         </span>
+         &nbsp;|&nbsp;
+         <span title="This review is inaccurate (help us detect inconsistencies)"
+               ng-click="rateFactCheckAsInaccurate()">
+           <a class="icon-remove"></a>
+           <span class="accurate-stat" title="Number of Co-inform users who have disagreed with this review">{{factCheckIsInaccurateStat()}}</span>
+         </span>
+       </div>
+       <div class="reviewInfo-timeGeo">
+         <span title="Reviewed On">{{factCheckReviewDate()}}</span>
+       </div>
+     </div>
+   </div>
+ </div>
+ 
 </div>

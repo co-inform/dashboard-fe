@@ -1001,7 +1001,7 @@ to{background-position:0 0}
 div.flot-text{color:#333!important}
 .dashboard-notice{z-index:8000;margin-left:0;padding:3px 0 3px 20px;width:100%;color:#333}
 .sidebar {
-  height: 100%;
+  height: 90%;
   width: 0;
   position: fixed;
   z-index: 2;
